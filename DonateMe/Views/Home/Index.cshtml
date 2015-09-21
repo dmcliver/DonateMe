@@ -1,0 +1,22 @@
+﻿@model IEnumerable<DonateMe.BusinessDomain.Entities.ItemCategory>
+@{
+    ViewBag.Title = "Home Page";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+               <b>W</b>elcome
+            </p>
+        </div>
+    </section>
+}
+
+@foreach (var item in Model)
+{
+    <p>@item.Name</p>
+}

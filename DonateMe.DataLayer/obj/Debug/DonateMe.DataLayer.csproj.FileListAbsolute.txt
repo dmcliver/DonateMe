@@ -1,0 +1,12 @@
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.DataLayer.dll.config
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.DataLayer.dll
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.DataLayer.pdb
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.BusinessDomain.dll
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\EntityFramework.dll
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.BusinessDomain.pdb
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\EntityFramework.xml
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.csprojResolveAssemblyReference.cache
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.dll
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.pdb
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.Common.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.Common.pdb

@@ -1,0 +1,5 @@
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.BusinessDomain\bin\Debug\DonateMe.BusinessDomain.dll
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.BusinessDomain\bin\Debug\DonateMe.BusinessDomain.pdb
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.BusinessDomain\obj\Debug\DonateMe.BusinessDomain.csprojResolveAssemblyReference.cache
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.BusinessDomain\obj\Debug\DonateMe.BusinessDomain.dll
+c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.BusinessDomain\obj\Debug\DonateMe.BusinessDomain.pdb
