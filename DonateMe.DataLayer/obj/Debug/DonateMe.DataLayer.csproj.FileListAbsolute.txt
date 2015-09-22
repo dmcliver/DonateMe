@@ -22,3 +22,5 @@ C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.Da
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.csprojResolveAssemblyReference.cache
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.dll
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.pdb
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\EntityFramework.SqlServer.xml

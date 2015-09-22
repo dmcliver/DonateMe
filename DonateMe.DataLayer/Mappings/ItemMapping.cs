@@ -16,6 +16,8 @@ namespace DonateMe.DataLayer.Mappings
                       .WithMany()
                       .HasForeignKey(i => new {i.ParentId, i.ChildId});
 
+            itemConfig.HasOptional(i => i.Brand).WithMany().HasForeignKey(i => i.BrandId);
+
             itemConfig.Property(i => i.Description);
             itemConfig.Property(i => i.Model);
             itemConfig.Property(i => i.Name).IsRequired();

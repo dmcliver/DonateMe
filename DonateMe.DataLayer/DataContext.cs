@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using DonateMe.BusinessDomain;
 using DonateMe.DataLayer.Mappings;
 
 namespace DonateMe.DataLayer
@@ -17,6 +18,10 @@ namespace DonateMe.DataLayer
             ItemCategoryMapping.ConfigureCategory(modelBuilder);
             ItemCategoryRelationMapping.ConfigureCategoryRelation(modelBuilder);
             ItemMapping.ConfigureItem(modelBuilder);
+            ImageMapping.ConfigureImage(modelBuilder);
+            BrandMapping.ConfigureBrand(modelBuilder);
+
+            modelBuilder.ComplexType<UriType>();
         }
 
         public new void Dispose(bool disposing)

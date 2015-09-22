@@ -188,3 +188,5 @@ C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bi
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\obj\Debug\DonateMe.Web.csprojResolveAssemblyReference.cache
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\obj\Debug\DonateMe.Web.dll
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\obj\Debug\DonateMe.Web.pdb
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\EntityFramework.SqlServer.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\EntityFramework.SqlServer.xml
