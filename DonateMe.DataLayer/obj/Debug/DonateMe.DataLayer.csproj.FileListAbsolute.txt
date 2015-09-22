@@ -10,3 +10,15 @@ c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLa
 c:\Users\win8user\documents\visual studio 2012\Projects\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.pdb
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.Common.dll
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.Common.pdb
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.DataLayer.dll.config
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.DataLayer.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.DataLayer.pdb
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.BusinessDomain.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.Common.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\EntityFramework.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.BusinessDomain.pdb
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\DonateMe.Common.pdb
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\bin\Debug\EntityFramework.xml
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.csprojResolveAssemblyReference.cache
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe.DataLayer\obj\Debug\DonateMe.DataLayer.pdb
