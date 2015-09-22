@@ -48,6 +48,9 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="DbInitializer.cs" />
     <Compile Include="IDataContext.cs" />
+    <Compile Include="Mappings\ItemCategoryMapping.cs" />
+    <Compile Include="Mappings\ItemCategoryRelationMapping.cs" />
+    <Compile Include="Mappings\ItemMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IItemCategoryRelationRepository.cs" />
     <Compile Include="Repositories\ItemCategoryRelationRepository.cs" />
