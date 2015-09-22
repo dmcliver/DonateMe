@@ -27,5 +27,10 @@ namespace DonateMe.BusinessDomain.Entities
         public Guid ChildId { get; private set; }
 
         public ItemCategoryRelation ItemCategoryRelation { get; private set; }
+
+        public ItemCategory Category
+        {
+            get { return ItemCategoryRelation.Child; }
+        }
     }
 }
