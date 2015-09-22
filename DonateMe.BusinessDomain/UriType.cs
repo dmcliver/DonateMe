@@ -11,7 +11,7 @@ namespace DonateMe.BusinessDomain
             if (string.IsNullOrWhiteSpace(path)) throw new ArgumentNullException("path");
             Path = path;
 
-            _uri = new Uri(Path);
+            _uri = new Uri(Path, UriKind.RelativeOrAbsolute);
         }
 
         protected UriType()
