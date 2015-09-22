@@ -4,9 +4,16 @@ namespace DonateMe.BusinessDomain.Entities
 {
     public class Item
     {
-        public Item(string name)
+        public Item(string name, ItemCategoryRelation itemCategoryRelation)
         {
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException("name");
+            if (itemCategoryRelation == null) throw new ArgumentNullException("itemCategoryRelation");
+
             Name = name;
+            ItemCategoryRelation = itemCategoryRelation;
+
+            ChildId = itemCategoryRelation.ChildId;
+            ParentId = itemCategoryRelation.ParentId;
         }
 
         protected Item() {}

@@ -4,7 +4,7 @@ using DonateMe.BusinessDomain.Entities;
 
 namespace DonateMe.DataLayer
 {
-    public class DbInitializer : DropCreateDatabaseAlways<DataContext>
+    public class DbInitializer : DropCreateDatabaseIfModelChanges<DataContext>
     {
         protected override void Seed(DataContext context)
         {
