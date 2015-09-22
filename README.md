@@ -1,2 +1,2 @@
-# DonateMe_
+# DonateMe!
 Peer To Peer Donation Website
