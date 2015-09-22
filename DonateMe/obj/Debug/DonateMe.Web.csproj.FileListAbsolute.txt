@@ -190,3 +190,7 @@ C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\ob
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\obj\Debug\DonateMe.Web.pdb
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\EntityFramework.SqlServer.dll
 C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\EntityFramework.SqlServer.xml
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\NLog.config
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\NLog.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\NLog.Web.dll
+C:\Users\win8user\Documents\Visual Studio 2012\Projects\Git\DonateMe\DonateMe\bin\NLog.xml

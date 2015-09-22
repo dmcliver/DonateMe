@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DonateMe.BusinessDomain.Entities;
+using NLog;
 
 namespace DonateMe.DataLayer.Repositories
 {
     public class ItemCategoryRelationRepository : IItemCategoryRelationRepository
     {
+        private readonly ILogger _logger;
         private readonly DbSet<ItemCategoryRelation> _itemCategoryRelations;
 
-        public ItemCategoryRelationRepository(IDataContext dataContext)
+        public ItemCategoryRelationRepository(IDataContext dataContext, ILogger logger)
         {
             if (dataContext == null) throw new ArgumentNullException("dataContext");
+            if (logger == null) throw new ArgumentNullException("logger");
+
             _itemCategoryRelations = dataContext.Set<ItemCategoryRelation>();
+            _logger = logger;
         }
 
         /// <summary>

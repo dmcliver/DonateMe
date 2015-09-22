@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using DonateMe.DataLayer;
+using NLog;
 
 namespace DonateMe.Web
 {
@@ -33,6 +34,8 @@ namespace DonateMe.Web
                        t.GetInterfaces().Any(i => i.GetCustomAttributes().Any(a => a.GetType().Name == "InjectedAttribute"))
                    )
                    .AsImplementedInterfaces();
+
+            builder.RegisterInstance(LogManager.GetCurrentClassLogger()).As<ILogger>();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
         }
