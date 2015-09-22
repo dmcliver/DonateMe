@@ -1,4 +1,10 @@
 */obj/*
 */bin/Debug/*
 */bin/Release/*
+/obj/*
+/bin/Debug/*
+/bin/Release/*
+obj/*
+bin/Debug/*
+bin/Release/*
 *.suo
