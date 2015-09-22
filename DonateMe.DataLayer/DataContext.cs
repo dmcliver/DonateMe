@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using DonateMe.BusinessDomain.Entities;
 
 namespace DonateMe.DataLayer
@@ -15,8 +16,25 @@ namespace DonateMe.DataLayer
             base.OnModelCreating(modelBuilder);
          
             ConfigureCategory(modelBuilder);
-
             ConfigureCategoryRelation(modelBuilder);
+            ConfigureItem(modelBuilder);
+        }
+
+        private void ConfigureItem(DbModelBuilder modelBuilder)
+        {
+            var itemConfig = modelBuilder.Entity<Item>();
+            itemConfig.ToTable("Item");
+
+            itemConfig.HasRequired(i => i.ItemCategoryRelation)
+                      .WithMany()
+                      .HasForeignKey(i => new {i.ParentId, i.ChildId});
+
+            itemConfig.Property(i => i.Description);
+            itemConfig.Property(i => i.Model);
+            itemConfig.Property(i => i.Name).IsRequired();
+
+            itemConfig.HasKey(i => i.ItemId);
+            itemConfig.Property(i => i.ItemId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
 
         private static void ConfigureCategoryRelation(DbModelBuilder modelBuilder)
