@@ -10,6 +10,8 @@ namespace DonateMe.DataLayer.Tests
     [TestFixture]
     public class DataContextTests
     {
+        const string Path = "/Users/dmcliver";
+
         [Test]
         public void GeneratesDataOk()
         {
@@ -26,7 +28,7 @@ namespace DonateMe.DataLayer.Tests
             Assert.True(images.Any());
 
             Uri uri = images.First().UriPath.GetUri();
-            Assert.That(uri.ToString(), Is.EqualTo("/Users/dmcliver"));
+            Assert.That(uri.ToString(), Is.EqualTo(Path));
         }
 
         private static void BuildItemWithImage(DataContext context)
@@ -38,10 +40,9 @@ namespace DonateMe.DataLayer.Tests
 
             var item = new Item("Guitar", itemCategoryRelation);
 
-            Image img = new Image(Guid.NewGuid(), new UriType("/Users/dmcliver"), item);
+            Image img = new Image(Guid.NewGuid(), new UriType(Path), item);
 
             AddEntities(context, child, parent, itemCategoryRelation, item, img);
-
         }
 
         private static void AddEntities(
