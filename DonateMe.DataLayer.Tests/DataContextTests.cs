@@ -13,7 +13,7 @@ namespace DonateMe.DataLayer.Tests
         const string Path = "/Users/dmcliver";
 
         [Test]
-        public void GeneratesDataOk()
+        public void GeneratesItemWithImageOk()
         {
             DataContext context = new DataContext();
 
@@ -21,16 +21,24 @@ namespace DonateMe.DataLayer.Tests
 
             context.SaveChanges();
 
-            IList<ItemCategory> categories = context.Set<ItemCategory>().ToList();
             IList<Image> images = context.Set<Image>().ToList();
 
-            Assert.That(categories, Is.Not.Null);
             Assert.True(images.Any());
 
             UriType uriPath = images.First().UriPath;
             Uri uri = uriPath.GetUri();
             Assert.That(uri.ToString(), Is.EqualTo(Path));
             Assert.That(uriPath.Path, Is.EqualTo(Path));
+        }
+
+        [Test]
+        public void QueriesItemCategoryDataOk()
+        {
+            DataContext context = new DataContext();
+
+            IList<ItemCategory> categories = context.Set<ItemCategory>().ToList();
+            
+            Assert.That(categories, Is.Not.Null);
         }
 
         private static void BuildItemWithImage(DataContext context)
