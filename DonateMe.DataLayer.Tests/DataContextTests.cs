@@ -27,8 +27,10 @@ namespace DonateMe.DataLayer.Tests
             Assert.That(categories, Is.Not.Null);
             Assert.True(images.Any());
 
-            Uri uri = images.First().UriPath.GetUri();
+            UriType uriPath = images.First().UriPath;
+            Uri uri = uriPath.GetUri();
             Assert.That(uri.ToString(), Is.EqualTo(Path));
+            Assert.That(uriPath.Path, Is.EqualTo(Path));
         }
 
         private static void BuildItemWithImage(DataContext context)
