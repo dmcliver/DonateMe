@@ -10,7 +10,7 @@ namespace DonateMe.DataLayer.Repositories
     public class ItemCategoryRelationRepository : IItemCategoryRelationRepository
     {
         private readonly ILogger _logger;
-        private readonly DbSet<ItemCategoryRelation> _itemCategoryRelations;
+        private readonly IDbSet<ItemCategoryRelation> _itemCategoryRelations;
 
         public ItemCategoryRelationRepository(IDataContext dataContext, ILogger logger)
         {
@@ -35,6 +35,16 @@ namespace DonateMe.DataLayer.Repositories
                                               select icrLeftIsParent.Parent;
 
             return query.ToList();
+        }
+
+        /// <summary>
+        /// Gets the child categories by the parent id.
+        /// </summary>
+        public IEnumerable<ItemCategory> GetChildCategoriesByParentId(Guid id)
+        {
+            return _itemCategoryRelations.Where(icr => icr.Parent.ItemCategoryId == id)
+                                         .Select(icr => icr.Child)
+                                         .ToList();
         } 
     }
 }

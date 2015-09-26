@@ -10,10 +10,10 @@ namespace DonateMe.DataLayer
         {
             base.Seed(context);
 
-            var parentCategory = new ItemCategory(Guid.NewGuid(), "Daddy");
+            var parentCategory = new ItemCategory(Guid.NewGuid(), "Music");
             context.Set<ItemCategory>().Add(parentCategory);
 
-            var childCategory = new ItemCategory(Guid.NewGuid(), "Child");
+            var childCategory = new ItemCategory(Guid.NewGuid(), "Instruments");
             context.Set<ItemCategory>().Add(childCategory);
 
             var itemCategoryRelation = new ItemCategoryRelation(parentCategory, childCategory);
