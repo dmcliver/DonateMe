@@ -41,31 +41,35 @@ namespace DonateMe.Web.Controllers
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         public ActionResult GetChildren(object id)
         {
-            if (id is Guid)
-            {
-                IEnumerable<ItemCategory> childCategories =_itemCategoryRelationRepository.GetChildCategoriesByParentId((Guid) id);
-                childCategories = childCategories as IList<ItemCategory> ?? childCategories.ToList();
-                if (childCategories.Any())
-                {
-                    IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationRepository.GetTopLevelCategories();
+            IEnumerable<ItemCategory> childCategories = _itemCategoryRelationRepository.GetChildCategoriesByParentId((Guid)id);
+            childCategories = childCategories as IList<ItemCategory> ?? childCategories.ToList();
 
-                    List<ItemNodeModel> itemNodeModels =
-                    topLevelCategories.Select(
-                        c =>
-                        c.ItemCategoryId == (Guid) id ? 
-                        new ItemNodeModel(c, childCategories) : 
-                        new ItemNodeModel(c)
-                    )
-                    .ToList();
-                    return View("Index", itemNodeModels);
-                }
+            IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationRepository.GetTopLevelCategories();
+
+            if (childCategories.Any())
+            {
+                List<ItemNodeModel> itemNodeModels = BuildItemNodeModels(id, topLevelCategories, childCategories);
+                return View("Index", itemNodeModels);
             }
             else
             {
-                //TODO: implement gathering products to display
-                return View("Index");
+                IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c)).ToList();
+                //TODO: implement adding product gathering functionality here
+                return View("Index", itemNodeModels);
             }
-            return View("Index");
+        }
+
+        private static List<ItemNodeModel> BuildItemNodeModels(object id, IEnumerable<ItemCategory> topLevelCategories, IEnumerable<ItemCategory> childCategories)
+        {
+            List<ItemNodeModel> itemNodeModels =
+            topLevelCategories.Select(
+                c =>
+                c.ItemCategoryId == (Guid) id ? 
+                new ItemNodeModel(c, childCategories) :
+                new ItemNodeModel(c)
+            )
+            .ToList();
+            return itemNodeModels;
         }
     }
 }
