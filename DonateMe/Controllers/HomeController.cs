@@ -39,9 +39,9 @@ namespace DonateMe.Web.Controllers
         }
 
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        public ActionResult GetChildren(object id)
+        public ActionResult GetChildren(Guid id)
         {
-            IEnumerable<ItemCategory> childCategories = _itemCategoryRelationRepository.GetChildCategoriesByParentId((Guid)id);
+            IEnumerable<ItemCategory> childCategories = _itemCategoryRelationRepository.GetChildCategoriesByParentId(id);
             childCategories = childCategories as IList<ItemCategory> ?? childCategories.ToList();
 
             IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationRepository.GetTopLevelCategories();
@@ -59,12 +59,12 @@ namespace DonateMe.Web.Controllers
             }
         }
 
-        private static List<ItemNodeModel> BuildItemNodeModels(object id, IEnumerable<ItemCategory> topLevelCategories, IEnumerable<ItemCategory> childCategories)
+        private static List<ItemNodeModel> BuildItemNodeModels(Guid id, IEnumerable<ItemCategory> topLevelCategories, IEnumerable<ItemCategory> childCategories)
         {
             List<ItemNodeModel> itemNodeModels =
             topLevelCategories.Select(
                 c =>
-                c.ItemCategoryId == (Guid) id ? 
+                c.ItemCategoryId == id ? 
                 new ItemNodeModel(c, childCategories) :
                 new ItemNodeModel(c)
             )

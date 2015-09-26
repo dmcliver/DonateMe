@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DonateMe.BusinessDomain.Entities;
 
@@ -23,7 +24,7 @@ namespace DonateMe.Web.Models
         }
 
         public string Name { get; private set; }
-        public object Id { get; private set; }
+        public Guid Id { get; private set; }
         public IEnumerable<ItemNodeModel> Children { get; private set; } 
     }
 }
