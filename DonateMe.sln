@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonateMe.DataLayer.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonateMe.Common", "DonateMe.Common\DonateMe.Common.csproj", "{AB42783C-094C-48FE-A353-DA56EA72E2E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonateMe.Web.Tests", "DonateMe.Web.Tests\DonateMe.Web.Tests.csproj", "{24690A20-F59F-46B1-B2D7-DA93EA43CF9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{AB42783C-094C-48FE-A353-DA56EA72E2E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB42783C-094C-48FE-A353-DA56EA72E2E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB42783C-094C-48FE-A353-DA56EA72E2E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24690A20-F59F-46B1-B2D7-DA93EA43CF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24690A20-F59F-46B1-B2D7-DA93EA43CF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24690A20-F59F-46B1-B2D7-DA93EA43CF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24690A20-F59F-46B1-B2D7-DA93EA43CF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

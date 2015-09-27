@@ -12,13 +12,15 @@ namespace DonateMe.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IItemCategoryRelationRepository _itemCategoryRelationRepository;
+        private readonly IItemNodeModelBuilder _itemNodeModelBuilder;
 
-        public HomeController(IItemCategoryRelationRepository itemCategoryRelationRepository)
+        public HomeController(IItemCategoryRelationRepository itemCategoryRelationRepository, IItemNodeModelBuilder itemNodeModelBuilder)
         {
-            if (itemCategoryRelationRepository == null)
-                throw new ArgumentNullException("itemCategoryRelationRepository");
+            if (itemCategoryRelationRepository == null) throw new ArgumentNullException("itemCategoryRelationRepository");
+            if (itemNodeModelBuilder == null) throw new ArgumentNullException("itemNodeModelBuilder");
 
             _itemCategoryRelationRepository = itemCategoryRelationRepository;
+            _itemNodeModelBuilder = itemNodeModelBuilder;
         }
 
         public ActionResult Index()
@@ -48,7 +50,7 @@ namespace DonateMe.Web.Controllers
 
             if (childCategories.Any())
             {
-                List<ItemNodeModel> itemNodeModels = BuildItemNodeModels(id, topLevelCategories, childCategories);
+                List<ItemNodeModel> itemNodeModels = _itemNodeModelBuilder.Build(id, topLevelCategories, childCategories);
                 return View("Index", itemNodeModels);
             }
             else
@@ -57,19 +59,6 @@ namespace DonateMe.Web.Controllers
                 //TODO: implement adding product gathering functionality here
                 return View("Index", itemNodeModels);
             }
-        }
-
-        private static List<ItemNodeModel> BuildItemNodeModels(Guid id, IEnumerable<ItemCategory> topLevelCategories, IEnumerable<ItemCategory> childCategories)
-        {
-            List<ItemNodeModel> itemNodeModels =
-            topLevelCategories.Select(
-                c =>
-                c.ItemCategoryId == id ? 
-                new ItemNodeModel(c, childCategories) :
-                new ItemNodeModel(c)
-            )
-            .ToList();
-            return itemNodeModels;
         }
     }
 }

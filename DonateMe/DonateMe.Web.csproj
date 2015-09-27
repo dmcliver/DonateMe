@@ -204,6 +204,8 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IItemNodeModelBuilder.cs" />
+    <Compile Include="Controllers\ItemNodeModelBuilder.cs" />
     <Compile Include="Models\ItemNodeModel.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Filters\InjectedAttribute.cs" />
