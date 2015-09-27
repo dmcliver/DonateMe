@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DonateMe.Web.Models.ItemNodeModel>
+﻿@using DonateMe.Web.Models
+@model IEnumerable<ItemNodeModel>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -16,7 +17,28 @@
     </section>
 }
 
-@foreach (var item in Model)
+@if (Model.Any())
 {
-    <p>@item.Name</p>
+    <ul>
+        @foreach (var m in Model)
+        {
+            <li>@Html.ActionLink(m.Name, "GetChildren", new {id = m.Id})</li>
+            @DisplayChildren(m.Children)
+        }
+    </ul>
+}
+
+@helper DisplayChildren(IEnumerable<ItemNodeModel> children)
+{
+    IEnumerable<ItemNodeModel> itemNodeModels = children as IList<ItemNodeModel> ?? children.ToList();
+    if (itemNodeModels.Any())
+    {
+        <ul>
+            @foreach (var c in itemNodeModels)
+            {
+                <li>@Html.ActionLink(c.Name, "GetChildren", new {id = c.Id})</li>
+                @DisplayChildren(c.Children)
+            }
+        </ul>
+    }
 }
