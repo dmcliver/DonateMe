@@ -47,6 +47,7 @@ namespace DonateMe.Web.Tests
 
             var itemNodeModelBuilder = Mock.For<IItemNodeModelBuilder>();
             var itemRepository = Mock.For<IItemRepository>();
+            itemRepository.GetByCategoryId(parentId).Returns(new List<Item>{new Item("Guitar", new ItemCategoryRelation(new ItemCategory(Guid.NewGuid(), "?"), new ItemCategory(Guid.NewGuid(), "?")))});
 
             var itemCategoryRelationRepository = Mock.For<IItemCategoryRelationRepository>();
             itemCategoryRelationRepository.GetChildCategoriesByParentId(parentId).Returns(new List<ItemCategory>());
