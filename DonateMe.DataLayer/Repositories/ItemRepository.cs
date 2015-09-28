@@ -17,7 +17,8 @@ namespace DonateMe.DataLayer.Repositories
 
         public IEnumerable<Item> GetByCategoryId(Guid id)
         {
-            return _dataContext.Set<Item>().Where(i => i.Category.ItemCategoryId == id).ToList();
-        } 
+            IQueryable<Item> query = _dataContext.Set<Item>().Where(i => i.ItemCategoryRelation.Child.ItemCategoryId == id);
+            return query.ToList();
+        }
     }
 }
