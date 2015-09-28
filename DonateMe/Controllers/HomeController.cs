@@ -13,14 +13,17 @@ namespace DonateMe.Web.Controllers
     {
         private readonly IItemCategoryRelationRepository _itemCategoryRelationRepository;
         private readonly IItemNodeModelBuilder _itemNodeModelBuilder;
+        private readonly IItemRepository _itemRepository;
 
-        public HomeController(IItemCategoryRelationRepository itemCategoryRelationRepository, IItemNodeModelBuilder itemNodeModelBuilder)
+        public HomeController(IItemCategoryRelationRepository itemCategoryRelationRepository, IItemNodeModelBuilder itemNodeModelBuilder, IItemRepository itemRepository)
         {
             if (itemCategoryRelationRepository == null) throw new ArgumentNullException("itemCategoryRelationRepository");
             if (itemNodeModelBuilder == null) throw new ArgumentNullException("itemNodeModelBuilder");
+            if (itemRepository == null) throw new ArgumentNullException("itemRepository");
 
             _itemCategoryRelationRepository = itemCategoryRelationRepository;
             _itemNodeModelBuilder = itemNodeModelBuilder;
+            _itemRepository = itemRepository;
         }
 
         public ActionResult Index()
@@ -56,7 +59,7 @@ namespace DonateMe.Web.Controllers
             else
             {
                 IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c)).ToList();
-                //TODO: implement adding product gathering functionality here
+                _itemRepository.GetByCategoryId(id);
                 return View("Index", itemNodeModels);
             }
         }

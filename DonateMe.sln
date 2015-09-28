@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonateMe.Common", "DonateMe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonateMe.Web.Tests", "DonateMe.Web.Tests\DonateMe.Web.Tests.csproj", "{24690A20-F59F-46B1-B2D7-DA93EA43CF9A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{602ECB82-7A93-437E-BF9C-99B9F8BEA52F}"
+	ProjectSection(SolutionItems) = preProject
+		DonateMe.Web.Tests\Mock.cs = DonateMe.Web.Tests\Mock.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,5 +51,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA2FD205-59B5-440E-8D88-1C64BF449848} = {602ECB82-7A93-437E-BF9C-99B9F8BEA52F}
+		{24690A20-F59F-46B1-B2D7-DA93EA43CF9A} = {602ECB82-7A93-437E-BF9C-99B9F8BEA52F}
 	EndGlobalSection
 EndGlobal
