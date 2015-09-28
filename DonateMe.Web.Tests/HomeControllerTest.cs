@@ -7,8 +7,8 @@ using DonateMe.DataLayer.Repositories;
 using DonateMe.Web.Controllers;
 using DonateMe.Web.Models;
 using NSubstitute;
-using NSubstitute.Core;
 using NUnit.Framework;
+
 // ReSharper disable PossibleNullReferenceException
 
 namespace DonateMe.Web.Tests
@@ -33,10 +33,10 @@ namespace DonateMe.Web.Tests
             itemCategoryRelationRepository.GetTopLevelCategories().Returns((IEnumerable<ItemCategory>) null);
 
             var controller = new HomeController(itemCategoryRelationRepository, itemNodeModelBuilder, itemRepository);
-            var model = (controller.GetChildren(parentId) as ViewResult).Model as List<ItemNodeModel>;
+            var model = (controller.GetChildren(parentId) as ViewResult).Model as ItemCategoryModelContainer;
 
             itemNodeModelBuilder.Received(1).Build(parentId, null, childCategories);
-            Assert.That(model, Is.SameAs(expectedModel));
+            Assert.That(model.Categories, Is.SameAs(expectedModel));
         }
 
         [Test]
@@ -53,13 +53,13 @@ namespace DonateMe.Web.Tests
             itemCategoryRelationRepository.GetTopLevelCategories().Returns(new List<ItemCategory>{new ItemCategory(Guid.NewGuid(), expectedNameOfFirstModel)});
 
             var controller = new HomeController(itemCategoryRelationRepository, itemNodeModelBuilder, itemRepository);
-            var model = (controller.GetChildren(parentId) as ViewResult).Model as List<ItemNodeModel>;
+            var model = (controller.GetChildren(parentId) as ViewResult).Model as ItemCategoryModelContainer;
 
             itemNodeModelBuilder.DidNotReceiveWithAnyArgs().Build(Guid.Empty, null, null);
             itemRepository.Received(1).GetByCategoryId(parentId);
 
-            Assert.That(model.Count, Is.EqualTo(1));
-            Assert.That(model[0].Name, Is.EqualTo(expectedNameOfFirstModel));
+            Assert.That(model.Categories.Count(), Is.EqualTo(1));
+            Assert.That(model.Categories.ElementAt(0).Name, Is.EqualTo(expectedNameOfFirstModel));
         }
     }
 }

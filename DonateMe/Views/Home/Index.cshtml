@@ -1,5 +1,5 @@
 ﻿@using DonateMe.Web.Models
-@model IEnumerable<ItemNodeModel>
+@model DonateMe.Web.Controllers.ItemCategoryModelContainer
 @{
     ViewBag.Title = "Home Page";
 }
@@ -17,15 +17,20 @@
     </section>
 }
 
-@if (Model.Any())
+@if (Model.Categories.Any())
 {
     <ul>
-        @foreach (var m in Model)
+        @foreach (var m in Model.Categories)
         {
             <li>@Html.ActionLink(m.Name, "GetChildren", new {id = m.Id})</li>
             @DisplayChildren(m.Children)
         }
     </ul>
+}
+
+@foreach (var i in Model.Items)
+{
+    <p>@i.Name</p>
 }
 
 @helper DisplayChildren(IEnumerable<ItemNodeModel> children)

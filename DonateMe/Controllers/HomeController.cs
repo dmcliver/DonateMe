@@ -30,7 +30,7 @@ namespace DonateMe.Web.Controllers
         {
             IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationRepository.GetTopLevelCategories();
             IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c));
-            return View(itemNodeModels);
+            return View(new ItemCategoryModelContainer(itemNodeModels));
         }
 
         public ActionResult About()
@@ -53,15 +53,35 @@ namespace DonateMe.Web.Controllers
 
             if (childCategories.Any())
             {
-                List<ItemNodeModel> itemNodeModels = _itemNodeModelBuilder.Build(id, topLevelCategories, childCategories);
-                return View("Index", itemNodeModels);
+                IList<ItemNodeModel> itemNodeModels = _itemNodeModelBuilder.Build(id, topLevelCategories, childCategories);
+                return View("Index", new ItemCategoryModelContainer(itemNodeModels));
             }
             else
             {
                 IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c)).ToList();
-                _itemRepository.GetByCategoryId(id);
-                return View("Index", itemNodeModels);
+                IEnumerable<Item> items = _itemRepository.GetByCategoryId(id);
+                return View("Index", new ItemCategoryModelContainer(itemNodeModels, items));
             }
         }
+    }
+
+    public class ItemCategoryModelContainer
+    {
+        public ItemCategoryModelContainer(IEnumerable<ItemNodeModel> itemNodeModels, IEnumerable<Item> items)
+        {
+            Categories = itemNodeModels;
+            Items = items;
+        }
+
+        public ItemCategoryModelContainer(IEnumerable<ItemNodeModel> itemNodeModels) :this(itemNodeModels, new List<Item>())
+        {
+        }
+
+        public ItemCategoryModelContainer() : this(new List<ItemNodeModel>(), new List<Item>())
+        {
+        }
+
+        public IEnumerable<ItemNodeModel> Categories { get; set; }
+        public IEnumerable<Item> Items { get; set; }
     }
 }
