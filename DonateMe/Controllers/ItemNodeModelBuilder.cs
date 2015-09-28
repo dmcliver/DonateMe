@@ -10,6 +10,9 @@ namespace DonateMe.Web.Controllers
     {
         public List<ItemNodeModel> Build(Guid id, IEnumerable<ItemCategory> topLevelCategories, IEnumerable<ItemCategory> childCategories)
         {
+            if (topLevelCategories == null) throw new ArgumentNullException("topLevelCategories");
+            if (childCategories == null) throw new ArgumentNullException("childCategories");
+
             List<ItemNodeModel> itemNodeModels =
             topLevelCategories.Select
             (

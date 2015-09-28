@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using DonateMe.BusinessDomain.Entities;
 using DonateMe.DataLayer.Repositories;
 using DonateMe.Web.Controllers;
 using DonateMe.Web.Models;
 using NSubstitute;
+using NSubstitute.Core;
 using NUnit.Framework;
 // ReSharper disable PossibleNullReferenceException
 
@@ -54,7 +56,7 @@ namespace DonateMe.Web.Tests
             var model = (controller.GetChildren(parentId) as ViewResult).Model as List<ItemNodeModel>;
 
             itemNodeModelBuilder.DidNotReceiveWithAnyArgs().Build(Guid.Empty, null, null);
-            itemRepository.GetByCategoryId(parentId).Received(1);
+            itemRepository.Received(1).GetByCategoryId(parentId);
 
             Assert.That(model.Count, Is.EqualTo(1));
             Assert.That(model[0].Name, Is.EqualTo(expectedNameOfFirstModel));
