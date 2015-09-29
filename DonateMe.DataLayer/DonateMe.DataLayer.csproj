@@ -65,6 +65,7 @@
     <Compile Include="Repositories\IItemRepository.cs" />
     <Compile Include="Repositories\ItemCategoryRelationRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
+    <Compile Include="Mappings\UserProfileMappping.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

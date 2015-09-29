@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DonateMe.Web.Filters;
 
 namespace DonateMe.Web
 {
@@ -20,6 +21,7 @@ namespace DonateMe.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
             AutofacConfig.RegisterIoc();
+            new InitializeSimpleMembershipAttribute().OnActionExecuting(null);
         }
     }
 }

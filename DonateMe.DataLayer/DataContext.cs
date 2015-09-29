@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 using DonateMe.BusinessDomain;
 using DonateMe.DataLayer.Mappings;
 
@@ -20,6 +21,7 @@ namespace DonateMe.DataLayer
             ItemMapping.ConfigureItem(modelBuilder);
             ImageMapping.ConfigureImage(modelBuilder);
             BrandMapping.ConfigureBrand(modelBuilder);
+            UserProfileMappping.ConfigureProfile(modelBuilder);
 
             modelBuilder.ComplexType<UriType>();
         }

@@ -45,6 +45,7 @@
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\ItemCategory.cs" />
     <Compile Include="Entities\ItemCategoryRelation.cs" />
+    <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UriType.cs" />
   </ItemGroup>
