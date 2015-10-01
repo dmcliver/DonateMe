@@ -10,7 +10,6 @@ using NSubstitute;
 using NUnit.Framework;
 
 // ReSharper disable PossibleNullReferenceException
-
 namespace DonateMe.Web.Tests
 {
     [TestFixture]
@@ -23,16 +22,16 @@ namespace DonateMe.Web.Tests
             var childCategories = new List<ItemCategory>{new ItemCategory(Guid.NewGuid(), "Menu")};
             var expectedModel = new List<ItemNodeModel>();
 
-            var itemRepository = Mock.For<IItemRepository>();
+            var itemDAO = Mock.For<ItemDAO>();
             
             var itemNodeModelBuilder = Mock.For<IItemNodeModelBuilder>();
             itemNodeModelBuilder.Build(parentId, null, childCategories).Returns(expectedModel);
 
-            var itemCategoryRelationRepository = Mock.For<IItemCategoryRelationRepository>();
-            itemCategoryRelationRepository.GetChildCategoriesByParentId(parentId).Returns(childCategories);
-            itemCategoryRelationRepository.GetTopLevelCategories().Returns((IEnumerable<ItemCategory>) null);
+            var itemCategoryRelationDAO = Mock.For<ItemCategoryRelationDAO>();
+            itemCategoryRelationDAO.GetChildCategoriesByParentId(parentId).Returns(childCategories);
+            itemCategoryRelationDAO.GetTopLevelCategories().Returns((IEnumerable<ItemCategory>) null);
 
-            var controller = new HomeController(itemCategoryRelationRepository, itemNodeModelBuilder, itemRepository);
+            var controller = new HomeController(itemCategoryRelationDAO, itemNodeModelBuilder, itemDAO);
             var model = (controller.GetChildren(parentId) as ViewResult).Model as ItemCategoryModelContainer;
 
             itemNodeModelBuilder.Received(1).Build(parentId, null, childCategories);
@@ -46,18 +45,18 @@ namespace DonateMe.Web.Tests
             const string expectedNameOfFirstModel = "Parent";
 
             var itemNodeModelBuilder = Mock.For<IItemNodeModelBuilder>();
-            var itemRepository = Mock.For<IItemRepository>();
-            itemRepository.GetByCategoryId(parentId).Returns(new List<Item>{new Item("Guitar", new ItemCategoryRelation(new ItemCategory(Guid.NewGuid(), "?"), new ItemCategory(Guid.NewGuid(), "?")))});
+            var itemDAO = Mock.For<ItemDAO>();
+            itemDAO.GetByCategoryId(parentId).Returns(new List<Item>{new Item("Guitar", new ItemCategoryRelation(new ItemCategory(Guid.NewGuid(), "?"), new ItemCategory(Guid.NewGuid(), "?")))});
 
-            var itemCategoryRelationRepository = Mock.For<IItemCategoryRelationRepository>();
-            itemCategoryRelationRepository.GetChildCategoriesByParentId(parentId).Returns(new List<ItemCategory>());
-            itemCategoryRelationRepository.GetTopLevelCategories().Returns(new List<ItemCategory>{new ItemCategory(Guid.NewGuid(), expectedNameOfFirstModel)});
+            var itemCategoryRelationDAO = Mock.For<ItemCategoryRelationDAO>();
+            itemCategoryRelationDAO.GetChildCategoriesByParentId(parentId).Returns(new List<ItemCategory>());
+            itemCategoryRelationDAO.GetTopLevelCategories().Returns(new List<ItemCategory>{new ItemCategory(Guid.NewGuid(), expectedNameOfFirstModel)});
 
-            var controller = new HomeController(itemCategoryRelationRepository, itemNodeModelBuilder, itemRepository);
+            var controller = new HomeController(itemCategoryRelationDAO, itemNodeModelBuilder, itemDAO);
             var model = (controller.GetChildren(parentId) as ViewResult).Model as ItemCategoryModelContainer;
 
             itemNodeModelBuilder.DidNotReceiveWithAnyArgs().Build(Guid.Empty, null, null);
-            itemRepository.Received(1).GetByCategoryId(parentId);
+            itemDAO.Received(1).GetByCategoryId(parentId);
 
             Assert.That(model.Categories.Count(), Is.EqualTo(1));
             Assert.That(model.Categories.ElementAt(0).Name, Is.EqualTo(expectedNameOfFirstModel));

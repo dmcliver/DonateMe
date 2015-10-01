@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using DonateMe.BusinessDomain.Entities;
 using DonateMe.Common;
+// ReSharper disable InconsistentNaming
 
 namespace DonateMe.DataLayer.Repositories
 {
     [Injected]
-    public interface IItemRepository
+    public interface ItemDAO
     {
         IEnumerable<Item> GetByCategoryId(Guid id);
     }

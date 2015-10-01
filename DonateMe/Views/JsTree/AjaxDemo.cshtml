@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "AJAXDemo";
+    Layout = "~/Views/Shared/_jsTreeDemo.cshtml";
+}
+
+<div id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
+
+<div data-bind="foreach: info">
+    <p data-bind="text: value"></p>
+</div>
+
+<script>
+
+    function ProductViewModel() {
+
+        this.info = ko.observableArray();
+
+        this.getProducts = function (caller, elem, data) {
+            this.info.push({ value: "Hello " + data.node.text });
+        }
+    }
+
+    $(function () {
+        $('#container')
+            .jstree({
+                'core': {
+                    'data': {
+                        'url': '/JsTree/GetJsTreeData',
+                        'dataType': 'json',
+                        'data': function (node) {
+                            return { 'id': node.id };
+                        }
+                    }
+                }
+            });
+    });
+
+    ko.applyBindings(new ProductViewModel());
+</script>

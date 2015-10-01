@@ -11,26 +11,50 @@ namespace DonateMe.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IItemCategoryRelationRepository _itemCategoryRelationRepository;
+        private readonly ItemCategoryRelationDAO _itemCategoryRelationDAO;
         private readonly IItemNodeModelBuilder _itemNodeModelBuilder;
-        private readonly IItemRepository _itemRepository;
+        private readonly ItemDAO _itemDAO;
 
-        public HomeController(IItemCategoryRelationRepository itemCategoryRelationRepository, IItemNodeModelBuilder itemNodeModelBuilder, IItemRepository itemRepository)
+        /// <summary>
+        /// Constructor for HomeController that has it's dependencies injected from IoC Container
+        /// </summary>
+        public HomeController(ItemCategoryRelationDAO itemCategoryRelationDAO, IItemNodeModelBuilder itemNodeModelBuilder, ItemDAO itemDAO)
         {
-            if (itemCategoryRelationRepository == null) throw new ArgumentNullException("itemCategoryRelationRepository");
+            if (itemCategoryRelationDAO == null) throw new ArgumentNullException("itemCategoryRelationDAO");
             if (itemNodeModelBuilder == null) throw new ArgumentNullException("itemNodeModelBuilder");
-            if (itemRepository == null) throw new ArgumentNullException("itemRepository");
+            if (itemDAO == null) throw new ArgumentNullException("itemDAO");
 
-            _itemCategoryRelationRepository = itemCategoryRelationRepository;
+            _itemCategoryRelationDAO = itemCategoryRelationDAO;
             _itemNodeModelBuilder = itemNodeModelBuilder;
-            _itemRepository = itemRepository;
+            _itemDAO = itemDAO;
         }
 
         public ActionResult Index()
         {
-            IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationRepository.GetTopLevelCategories();
+            IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationDAO.GetTopLevelCategories();
             IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c));
             return View(new ItemCategoryModelContainer(itemNodeModels));
+        }
+
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
+        public ActionResult GetChildren(Guid id)
+        {
+            IEnumerable<ItemCategory> childCategories = _itemCategoryRelationDAO.GetChildCategoriesByParentId(id);
+            childCategories = childCategories as IList<ItemCategory> ?? childCategories.ToList();
+
+            IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationDAO.GetTopLevelCategories();
+
+            if (childCategories.Any())
+            {
+                IList<ItemNodeModel> itemNodeModels = _itemNodeModelBuilder.Build(id, topLevelCategories, childCategories);
+                return View("Index", new ItemCategoryModelContainer(itemNodeModels));
+            }
+            else
+            {
+                IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c)).ToList();
+                IEnumerable<Item> items = _itemDAO.GetByCategoryId(id);
+                return View("Index", new ItemCategoryModelContainer(itemNodeModels, items));
+            }
         }
 
         public ActionResult About()
@@ -41,27 +65,6 @@ namespace DonateMe.Web.Controllers
         public ActionResult Contact()
         {
             return View();
-        }
-
-        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        public ActionResult GetChildren(Guid id)
-        {
-            IEnumerable<ItemCategory> childCategories = _itemCategoryRelationRepository.GetChildCategoriesByParentId(id);
-            childCategories = childCategories as IList<ItemCategory> ?? childCategories.ToList();
-
-            IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationRepository.GetTopLevelCategories();
-
-            if (childCategories.Any())
-            {
-                IList<ItemNodeModel> itemNodeModels = _itemNodeModelBuilder.Build(id, topLevelCategories, childCategories);
-                return View("Index", new ItemCategoryModelContainer(itemNodeModels));
-            }
-            else
-            {
-                IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c)).ToList();
-                IEnumerable<Item> items = _itemRepository.GetByCategoryId(id);
-                return View("Index", new ItemCategoryModelContainer(itemNodeModels, items));
-            }
         }
     }
 }

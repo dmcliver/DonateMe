@@ -7,12 +7,12 @@ using NLog;
 
 namespace DonateMe.DataLayer.Repositories
 {
-    public class ItemCategoryRelationRepository : IItemCategoryRelationRepository
+    public class ItemCategoryRelationDAOImpl : ItemCategoryRelationDAO
     {
         private readonly ILogger _logger;
         private readonly IDbSet<ItemCategoryRelation> _itemCategoryRelations;
 
-        public ItemCategoryRelationRepository(IDataContext dataContext, ILogger logger)
+        public ItemCategoryRelationDAOImpl(IDataContext dataContext, ILogger logger)
         {
             if (dataContext == null) throw new ArgumentNullException("dataContext");
             if (logger == null) throw new ArgumentNullException("logger");

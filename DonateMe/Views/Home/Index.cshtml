@@ -6,13 +6,14 @@
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
+
             <hgroup class="title">
                 <h1>@ViewBag.Title.</h1>
                 <h2>@ViewBag.Message</h2>
             </hgroup>
-            <p>
-               <b>W</b>elcome
-            </p>
+
+            <p><b>W</b>elcome</p>
+
         </div>
     </section>
 }
@@ -46,4 +47,8 @@
             }
         </ul>
     }
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jstree");
 }

@@ -5,11 +5,11 @@ using DonateMe.BusinessDomain.Entities;
 
 namespace DonateMe.DataLayer.Repositories
 {
-    public class ItemRepository : IItemRepository
+    public class ItemDAOImpl : ItemDAO
     {
         private readonly IDataContext _dataContext;
 
-        public ItemRepository(IDataContext dataContext)
+        public ItemDAOImpl(IDataContext dataContext)
         {
             if (dataContext == null) throw new ArgumentNullException("dataContext");
             _dataContext = dataContext;
