@@ -41,7 +41,7 @@ namespace DonateMe.DataLayer.Repositories
         }
 
         /// <summary>
-        /// Gets the top level categories with no children.
+        /// Gets the top level categories with no children (sub categories).
         /// </summary>
         public IEnumerable<ItemCategory> GetTopLevelCategoriesWithNoChildren()
         {
@@ -56,7 +56,8 @@ namespace DonateMe.DataLayer.Repositories
         } 
 
         /// <summary>
-        /// Gets the child categories by the parent id.
+        /// Gets the child categories (sub categories) by the parent id.
+        /// <returns>The Category containing a count the sub categories this sub category has</returns>
         /// </summary>
         public IEnumerable<ItemCategoryCount> GetChildCategoriesByParentId(Guid id)
         {

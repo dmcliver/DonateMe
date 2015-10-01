@@ -22,6 +22,7 @@ namespace DonateMe.DataLayer.Repositories
 
         /// <summary>
         /// Gets the top level categories containing no subcategories.
+        /// <returns>The Category containing a count the sub categories this sub category has</returns>
         /// </summary>
         IEnumerable<ItemCategory> GetTopLevelCategoriesWithNoChildren();
     }
