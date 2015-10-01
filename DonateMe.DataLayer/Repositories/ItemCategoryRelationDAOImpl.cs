@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Threading;
 using DonateMe.BusinessDomain;
 using DonateMe.BusinessDomain.Entities;
 using NLog;
@@ -80,7 +78,7 @@ namespace DonateMe.DataLayer.Repositories
                                        join childRelation in _itemCategoryRelations on relation.Child.ItemCategoryId equals childRelation.Parent.ItemCategoryId
                                        into lefts
                                        from leftsWithNull in lefts.DefaultIfEmpty()
-                                       where relation.Parent.ItemCategoryId == id &&  leftsWithNull == null
+                                       where relation.Parent.ItemCategoryId == id && leftsWithNull == null
                                        select new {Id = relation.ChildId, TotalCount = 0};
 
             var query = from u in categoriesWithChildren.Union(categoriesWithNoKids)
