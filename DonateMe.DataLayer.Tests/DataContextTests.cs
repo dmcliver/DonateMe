@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DonateMe.BusinessDomain;
 using DonateMe.BusinessDomain.Entities;
+using DonateMe.DataLayer.Repositories;
+using DonateMe.Web.Tests;
+using NLog;
 using NUnit.Framework;
 
 namespace DonateMe.DataLayer.Tests
@@ -65,6 +68,13 @@ namespace DonateMe.DataLayer.Tests
             context.Set<ItemCategoryRelation>().Add(itemCategoryRelation);
             context.Set<Item>().Add(item);
             context.Set<Image>().Add(img);
+        }
+
+        [Test]
+        public void TestSql()
+        {
+            Guid guid = Guid.Parse("A3C7A21C-4C61-4A7A-B7D3-3B7D6EFA6F8A");
+            new ItemCategoryRelationDAOImpl(new DataContext(), Mock.For<ILogger>()).GetChildCategoriesByParentId(guid);
         }
     }
 }

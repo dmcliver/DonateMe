@@ -23,8 +23,8 @@
     <ul>
         @foreach (var m in Model.Categories)
         {
-            <li>@Html.ActionLink(m.Name, "GetChildren", new {id = m.Id})</li>
-            @DisplayChildren(m.Children)
+            <li>@Html.ActionLink(m.text, "GetChildren", new {id = m.id})</li>
+@*            @DisplayChildren(m.children)*@
         }
     </ul>
 }
@@ -42,8 +42,8 @@
         <ul>
             @foreach (var c in itemNodeModels)
             {
-                <li>@Html.ActionLink(c.Name, "GetChildren", new {id = c.Id})</li>
-                @DisplayChildren(c.Children)
+                <li>@Html.ActionLink(c.text, "GetChildren", new {id = c.id})</li>
+@*                @DisplayChildren(c.children)*@
             }
         </ul>
     }

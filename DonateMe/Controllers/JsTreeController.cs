@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using jsTree3.Models;
+using DonateMe.Web.Models;
 
 namespace DonateMe.Web.Controllers
 {
@@ -15,7 +15,8 @@ namespace DonateMe.Web.Controllers
 
         public JsonResult GetJsTreeData(string id)
         {
-            if (id == "#" || id == null)
+            int result;
+            if (id == "#" || id == null || !int.TryParse(id, out result))
             {
                 JsTreeNode root = BuildRoot();
                 return Json(root, JsonRequestBehavior.AllowGet);

@@ -9,7 +9,7 @@ namespace DonateMe.DataLayer
     {
         public DataContext() : base("DonateMeDb")
         {
-            Database.SetInitializer(new DbInitializer());
+            Database.SetInitializer(new NullDatabaseInitializer<DataContext>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

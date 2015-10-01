@@ -1,30 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DonateMe.BusinessDomain.Entities;
+using DonateMe.BusinessDomain;
 
 namespace DonateMe.Web.Models
 {
     public class ItemNodeModel
     {
-        public ItemNodeModel(ItemCategory itemCategory) : this(itemCategory, new List<ItemCategory>())
+        public ItemNodeModel(ItemCategoryCount itemCategory, bool hasChildren = false):this(itemCategory.Name, itemCategory.ItemCategoryId, hasChildren)
         {
+            if (itemCategory == null) throw new ArgumentNullException("itemCategory");
         }
 
-        public ItemNodeModel(ItemCategory itemCategory, IEnumerable<ItemCategory> childCategories)
+        public ItemNodeModel(string name, Guid id, bool hasChildren)
         {
-            Name = itemCategory.Name;
-            Id = itemCategory.ItemCategoryId;
-
-            List<ItemCategory> childItemCategories = childCategories.ToList();
-            
-            Children = childItemCategories.Any() ? 
-                       childItemCategories.Select(c => new ItemNodeModel(c)).ToList() : 
-                       new List<ItemNodeModel>();
+            text = name;
+            this.id = id;
+            children = hasChildren;
         }
 
-        public string Name { get; private set; }
-        public Guid Id { get; private set; }
-        public IEnumerable<ItemNodeModel> Children { get; private set; } 
+        public string text { get; private set; }
+        public Guid id { get; private set; }
+        public bool children { get; private set; } 
     }
 }

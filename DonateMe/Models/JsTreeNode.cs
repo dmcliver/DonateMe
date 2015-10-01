@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace jsTree3.Models
+namespace DonateMe.Web.Models
 {
     public class JsTreeNode
     {
