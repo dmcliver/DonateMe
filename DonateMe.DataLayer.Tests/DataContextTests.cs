@@ -76,5 +76,11 @@ namespace DonateMe.DataLayer.Tests
             Guid guid = Guid.Parse("A3C7A21C-4C61-4A7A-B7D3-3B7D6EFA6F8A");
             new ItemCategoryRelationDAOImpl(new DataContext(), Mock.For<ILogger>()).GetChildCategoriesByParentId(guid);
         }
+
+        [Test]
+        public void TestSql2()
+        {
+            new ItemCategoryRelationDAOImpl(new DataContext(), Mock.For<ILogger>()).GetTopLevelCategoriesWithNoChildren();
+        }
     }
 }

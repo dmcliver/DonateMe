@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Web.Mvc;
-using DonateMe.BusinessDomain.Entities;
 using DonateMe.DataLayer.Repositories;
-using DonateMe.Web.Models;
 
 namespace DonateMe.Web.Controllers
 {
@@ -28,30 +23,7 @@ namespace DonateMe.Web.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren();
-            //IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c));
-            return View(new ItemCategoryModelContainer(new List<ItemNodeModel>()));
-        }
-
-        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        public ActionResult GetChildren(Guid id)
-        {
-            /*            IEnumerable<ItemCategory> childCategories = _itemCategoryRelationDAO.GetChildCategoriesByParentId(id);
-            childCategories = childCategories as IList<ItemCategory> ?? childCategories.ToList();
-
-
-            if (childCategories.Any())
-            {
-                return null;
-            }*/
-
-            {
-                IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren();
-
-                //IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c)).ToList();
-                IEnumerable<Item> items = _itemDAO.GetByCategoryId(id);
-                return View("Index", new ItemCategoryModelContainer());
-            }
+            return View();
         }
 
         public ActionResult About()

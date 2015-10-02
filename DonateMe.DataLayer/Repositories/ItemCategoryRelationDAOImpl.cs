@@ -29,13 +29,13 @@ namespace DonateMe.DataLayer.Repositories
         /// </summary>
         public IEnumerable<ItemCategory> GetTopLevelCategoriesWithChildren()
         {
-            IEnumerable<ItemCategory> query = from icrLeftIsParent in _itemCategoryRelations
+            IEnumerable<ItemCategory> query = (from icrLeftIsParent in _itemCategoryRelations
                                               join icrRight in _itemCategoryRelations
                                               on icrLeftIsParent.ParentId equals icrRight.ChildId
                                               into rightEntity
                                               from rightsAndNulls in rightEntity.DefaultIfEmpty()
                                               where rightsAndNulls == null
-                                              select icrLeftIsParent.Parent;
+                                              select icrLeftIsParent.Parent).Distinct();
 
             return query.ToList();
         }
@@ -48,11 +48,15 @@ namespace DonateMe.DataLayer.Repositories
             IQueryable<ItemCategory> query = from ic in _itemCategories
                                              join icr in _itemCategoryRelations on ic.ItemCategoryId equals icr.Parent.ItemCategoryId
                                              into lefts
+                                             join icr2 in _itemCategoryRelations on ic.ItemCategoryId equals icr2.ChildId
+                                             into lefts2
                                              from leftsWithNulls in lefts.DefaultIfEmpty()
-                                             where leftsWithNulls == null
+                                             from lefts2WithNulls in lefts2.DefaultIfEmpty()
+                                             where leftsWithNulls == null && lefts2WithNulls == null
                                              select ic;
 
-            return query.ToList();
+            List<ItemCategory> topLevelCategoriesWithNoChildren = query.ToList();
+            return topLevelCategoriesWithNoChildren;
         } 
 
         /// <summary>

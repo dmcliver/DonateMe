@@ -1,8 +1,10 @@
 using System.Linq;
 using System.Reflection;
+using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using DonateMe.DataLayer;
 using NLog;
 
@@ -15,6 +17,13 @@ namespace DonateMe.Web
             var builder = new ContainerBuilder();
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
+
+            var config = GlobalConfiguration.Configuration;
+
+            // Register your Web API controllers.
+            builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
+
+            builder.RegisterWebApiFilterProvider(config);
 
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
             builder.RegisterModelBinderProvider();
@@ -37,7 +46,9 @@ namespace DonateMe.Web
 
             builder.RegisterInstance(LogManager.GetCurrentClassLogger()).As<ILogger>();
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
+            IContainer container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }

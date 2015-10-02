@@ -1,6 +1,4 @@
-﻿@using DonateMe.Web.Models
-@model ItemCategoryModelContainer
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 @section featured {
@@ -18,37 +16,40 @@
     </section>
 }
 
-@if (Model.Categories.Any())
-{
-    <ul>
-        @foreach (var m in Model.Categories)
-        {
-            <li>@Html.ActionLink(m.text, "GetChildren", new {id = m.id})</li>
-@*            @DisplayChildren(m.children)*@
-        }
-    </ul>
-}
-
-@foreach (var i in Model.Items)
-{
-    <p>@i.Name</p>
-}
-
-@helper DisplayChildren(IEnumerable<ItemNodeModel> children)
-{
-    IEnumerable<ItemNodeModel> itemNodeModels = children as IList<ItemNodeModel> ?? children.ToList();
-    if (itemNodeModels.Any())
-    {
-        <ul>
-            @foreach (var c in itemNodeModels)
-            {
-                <li>@Html.ActionLink(c.text, "GetChildren", new {id = c.id})</li>
-@*                @DisplayChildren(c.children)*@
-            }
-        </ul>
-    }
-}
-
 @section scripts{
     @Scripts.Render("~/bundles/jstree");
 }
+
+<div id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
+
+<div data-bind="foreach: info">
+    <p data-bind="text: value"></p>
+</div>
+
+<script>
+
+    function ProductViewModel() {
+
+        this.info = ko.observableArray();
+
+        this.getProducts = function (caller, elem, data) {
+            this.info.push({ value: "Hello " + data.node.text });
+        }
+    }
+
+    $(function () {
+        $('#container').jstree({
+            'core': {
+                'data': {
+                    'url': '/Api/Navigator',
+                    'dataType': 'json',
+                    'data': function (node) {
+                        return { 'id': node.id };
+                    }
+                }
+            }
+        });
+    });
+
+    ko.applyBindings(new ProductViewModel());
+</script>

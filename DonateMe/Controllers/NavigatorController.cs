@@ -27,7 +27,7 @@ namespace DonateMe.Web.Controllers
         }
 
         // GET api/navigator/5
-        public IEnumerable<ItemNodeModel> Get(string id)
+        public IEnumerable<ItemNodeModel> Get([FromUri] string id)
         {
             Guid gid;
             bool isTopLevel = !Guid.TryParse(id, out gid);
