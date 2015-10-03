@@ -82,5 +82,11 @@ namespace DonateMe.DataLayer.Tests
         {
             new ItemCategoryRelationDAOImpl(new DataContext(), Mock.For<ILogger>()).GetTopLevelCategoriesWithNoChildren();
         }
+
+        [Test]
+        public void TestSql3()
+        {
+            new ItemCategoryRelationDAOImpl(new DataContext(), Mock.For<ILogger>()).GetTopLevelCategoriesWithChildren();
+        }
     }
 }

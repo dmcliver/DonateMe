@@ -26,7 +26,7 @@ namespace DonateMe.Web.Controllers
             _itemDAO = itemDAO;
         }
 
-        // GET api/navigator/5
+        // GET api/navigator?id=5
         public IEnumerable<ItemNodeModel> Get([FromUri] string id)
         {
             Guid gid;
@@ -47,3 +47,4 @@ namespace DonateMe.Web.Controllers
         }
     }
 }
+
