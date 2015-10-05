@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace DonateMe.BusinessDomain.Entities
 {
@@ -47,7 +46,7 @@ namespace DonateMe.BusinessDomain.Entities
 
         public ItemCategory Category
         {
-            get { return ItemCategoryRelation.Child; }
+            get { return ItemCategoryRelation == null ? null : ItemCategoryRelation.Child; }
         }
     }
 }

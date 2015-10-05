@@ -25,11 +25,11 @@ namespace DonateMe.Web.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<DataContext>(null);
+                Database.SetInitializer<DbContextImpl>(null);
 
                 try
                 {
-                    using (DataContext context = new DataContext())
+                    using (DbContextImpl context = new DbContextImpl())
                     {
                         if (!context.Database.Exists())
                         {

@@ -52,9 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContext.cs" />
+    <Compile Include="DbProxyContext.cs" />
     <Compile Include="DbInitializer.cs" />
-    <Compile Include="IDataContext.cs" />
+    <Compile Include="IDbProxyContext.cs" />
     <Compile Include="Mappings\BrandMapping.cs" />
     <Compile Include="Mappings\ImageMapping.cs" />
     <Compile Include="Mappings\ItemCategoryMapping.cs" />

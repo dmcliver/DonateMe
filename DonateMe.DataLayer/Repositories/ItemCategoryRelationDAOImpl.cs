@@ -10,17 +10,17 @@ namespace DonateMe.DataLayer.Repositories
 {
     public class ItemCategoryRelationDAOImpl : ItemCategoryRelationDAO
     {
-        private readonly IDbSet<ItemCategoryRelation> _itemCategoryRelations;
-        private readonly IDbSet<ItemCategory> _itemCategories;
+        private readonly IQueryable<ItemCategoryRelation> _itemCategoryRelations;
+        private readonly IQueryable<ItemCategory> _itemCategories;
         private readonly ILogger _logger;
 
-        public ItemCategoryRelationDAOImpl(IDataContext dataContext, ILogger logger)
+        public ItemCategoryRelationDAOImpl(IDbProxyContext dbContext, ILogger logger)
         {
-            if (dataContext == null) throw new ArgumentNullException("dataContext");
+            if (dbContext == null) throw new ArgumentNullException("dbContext");
             if (logger == null) throw new ArgumentNullException("logger");
 
-            _itemCategoryRelations = dataContext.Set<ItemCategoryRelation>();
-            _itemCategories = dataContext.Set<ItemCategory>();
+            _itemCategoryRelations = dbContext.Set<ItemCategoryRelation>();
+            _itemCategories = dbContext.Set<ItemCategory>();
             _logger = logger;
         }
 
