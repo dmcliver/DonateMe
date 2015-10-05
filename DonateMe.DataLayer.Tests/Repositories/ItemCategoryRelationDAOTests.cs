@@ -78,11 +78,6 @@ namespace DonateMe.DataLayer.Tests.Repositories
             Assert.That(itemCategories[0].Name, Is.EqualTo(expectedItemName));
         }
 
-        private ItemCategory BuildItemCategory(string itemName)
-        {
-            return _itemCategoryBuilder.WithIdAndName("BF273661-F572-4A6F-974B-5DB56F9DADBA", itemName).Build();
-        }
-
         [Test]
         public void GetTopLevelCategoriesWithChildren_ReturnsOnlyTopLevelCategoriesWithChildren()
         {
@@ -113,6 +108,11 @@ namespace DonateMe.DataLayer.Tests.Repositories
                 _builder.WithParentAndChild(musicChild, musicGrandChild).Build()
             };
             return itemCategoryRelations;
+        }
+
+        private ItemCategory BuildItemCategory(string itemName)
+        {
+            return _itemCategoryBuilder.WithIdAndName("BF273661-F572-4A6F-974B-5DB56F9DADBA", itemName).Build();
         }
     }
 }
