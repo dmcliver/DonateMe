@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="DonateMeApp">
     <head>
         <meta charset="utf-8" />
         <title>@ViewBag.Title - My ASP.NET MVC Application</title>
@@ -11,6 +11,10 @@
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/knockout")
+        @Scripts.Render("~/bundles/angular")
+        <script type="text/javascript">
+            var app = angular.module("DonateMeApp", []);
+        </script>
     </head>
     <body>
         <header>
@@ -33,7 +37,7 @@
             </div>
         </header>
         <div id="body">
-            @RenderSection("featured", required: false)
+            @RenderSection("featured", false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>

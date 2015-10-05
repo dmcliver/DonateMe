@@ -2,6 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 @section featured {
+
     <section class="featured">
         <div class="content-wrapper">
 
@@ -17,72 +18,19 @@
 }
 
 @section scripts{
-    @Scripts.Render("~/bundles/jstree");
+
+    @Scripts.Render("~/bundles/jstree")
+    @Scripts.Render("~/bundles/ProductMvvm")
+
+    <script type="text/javascript">
+        ko.applyBindings(new ProductViewModel(new ProductRepository()));
+    </script>
 }
 
 <div id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
 
-<p ><span data-bind="text: message"></span></p>
+<p><span data-bind="text: message"></span></p>
 
 <div data-bind="foreach: info">
     <p data-bind="text: value"></p>
 </div>
-
-<script>
-
-    function ProductViewModel(prodRepo) {
-
-        var self = this;
-
-        self.info = ko.observableArray();
-
-        self.message = ko.observable();
-
-        self.getProducts = function (caller, elem, data) {
-            prodRepo.getProductsById(data.node.id, self);
-        }
-
-        self.execute = function (data) {
-
-            self.info.removeAll();
-            self.message("");
-
-            if (data.length < 1) {
-                self.message("No products to display");
-                return;
-            }
-
-            for(var i = 0; i < data.length; i++) {
-                self.info.push({ value: data[i].Name });
-            }
-        }
-    }
-
-    function ProductRepository() {
-        
-        this.getProductsById = function (id, command) {
-
-            $.getJSON("/Api/Item", { "id": id })
-             .done(function (data) {
-
-                command.execute(data);
-            });
-        }
-    }
-
-    $(function() {
-        $('#container').jstree({
-            'core': {
-                'data': {
-                    'url': '/Api/Navigator',
-                    'dataType': 'json',
-                    'data': function(node) {
-                        return { 'id': node.id };
-                    }
-                }
-            }
-        });
-    });
-
-    ko.applyBindings(new ProductViewModel(new ProductRepository()));
-</script>
