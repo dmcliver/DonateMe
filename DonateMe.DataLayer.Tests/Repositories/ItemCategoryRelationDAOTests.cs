@@ -9,6 +9,7 @@ using NLog;
 using NSubstitute;
 using NUnit.Framework;
 using TestCommon;
+using TestCommon.Builders;
 
 namespace DonateMe.DataLayer.Tests.Repositories
 {
@@ -39,7 +40,7 @@ namespace DonateMe.DataLayer.Tests.Repositories
         [Test]
         public void GetChildCategoriesByParentId_ReturnsOnlyAssociatedCategories()
         {
-            IDbProxyContext context = Mock.For<IDbProxyContext>();
+            IDbProxyContext context = Mock.Instantiate<IDbProxyContext>();
 
             List<ItemCategory> categories = new List<ItemCategory> { _musicParent, _musicChild, _musicChild2, _musicGrandChild };
             context.Set<ItemCategory>().Returns(categories.AsQueryable());
@@ -47,7 +48,7 @@ namespace DonateMe.DataLayer.Tests.Repositories
             List<ItemCategoryRelation> itemCategoryRelations = BuildItemCategoryRelations(_musicParent, _musicChild, _musicChild2, _musicGrandChild);
             context.Set<ItemCategoryRelation>().Returns(itemCategoryRelations.AsQueryable());
 
-            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.For<ILogger>());
+            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.Instantiate<ILogger>());
             IEnumerable<ItemCategoryCount> categoryCounts = itemCategoryRelationDAO.GetChildCategoriesByParentId(Guid.Parse(Id)).ToList();
 
             Assert.That(categoryCounts.Count(), Is.EqualTo(2));
@@ -60,7 +61,7 @@ namespace DonateMe.DataLayer.Tests.Repositories
         {
             const string expectedItemName = "Books";
 
-            IDbProxyContext context = Mock.For<IDbProxyContext>();
+            IDbProxyContext context = Mock.Instantiate<IDbProxyContext>();
 
             List<ItemCategory> categories = new List<ItemCategory>
             {
@@ -71,7 +72,7 @@ namespace DonateMe.DataLayer.Tests.Repositories
             List<ItemCategoryRelation> itemCategoryRelations = BuildItemCategoryRelations(_musicParent, _musicChild, _musicChild2, _musicGrandChild);
             context.Set<ItemCategoryRelation>().Returns(itemCategoryRelations.AsQueryable());
 
-            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.For<ILogger>());
+            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.Instantiate<ILogger>());
             List<ItemCategory> itemCategories = itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().ToList();
             
             Assert.That(itemCategories.Count, Is.EqualTo(1));
@@ -81,7 +82,7 @@ namespace DonateMe.DataLayer.Tests.Repositories
         [Test]
         public void GetTopLevelCategoriesWithChildren_ReturnsOnlyTopLevelCategoriesWithChildren()
         {
-            IDbProxyContext context = Mock.For<IDbProxyContext>();
+            IDbProxyContext context = Mock.Instantiate<IDbProxyContext>();
 
             List<ItemCategory> categories = new List<ItemCategory>
             {
@@ -92,7 +93,7 @@ namespace DonateMe.DataLayer.Tests.Repositories
             List<ItemCategoryRelation> itemCategoryRelations = BuildItemCategoryRelations(_musicParent, _musicChild, _musicChild2, _musicGrandChild);
             context.Set<ItemCategoryRelation>().Returns(itemCategoryRelations.AsQueryable());
 
-            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.For<ILogger>());
+            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.Instantiate<ILogger>());
             List<ItemCategory> itemCategories = itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().ToList();
 
             Assert.That(itemCategories.Count, Is.EqualTo(1));

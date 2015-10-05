@@ -12,18 +12,14 @@ namespace DonateMe.Web.Controllers
     public class NavigatorController : ApiController
     {
         private readonly ItemCategoryRelationDAO _itemCategoryRelationDAO;
-        private readonly ItemDAO _itemDAO;
 
-                /// <summary>
+        /// <summary>
         /// Constructor for NavigatorController that has it's dependencies injected from IoC Container
         /// </summary>
-        public NavigatorController(ItemCategoryRelationDAO itemCategoryRelationDAO, ItemDAO itemDAO)
+        public NavigatorController(ItemCategoryRelationDAO itemCategoryRelationDAO)
         {
             if (itemCategoryRelationDAO == null) throw new ArgumentNullException("itemCategoryRelationDAO");
-            if (itemDAO == null) throw new ArgumentNullException("itemDAO");
-
             _itemCategoryRelationDAO = itemCategoryRelationDAO;
-            _itemDAO = itemDAO;
         }
 
         // GET api/navigator?id=5
@@ -38,8 +34,7 @@ namespace DonateMe.Web.Controllers
                 IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c.Name, c.ItemCategoryId, true));
                 
                 topLevelCategories = _itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren();
-                itemNodeModels = itemNodeModels.Concat(topLevelCategories.Select(c => new ItemNodeModel(c.Name, c.ItemCategoryId, false)));
-                return itemNodeModels;
+                return itemNodeModels.Concat(topLevelCategories.Select(c => new ItemNodeModel(c.Name, c.ItemCategoryId, false)));
             }
 
             IEnumerable<ItemCategoryCount> childCategories = _itemCategoryRelationDAO.GetChildCategoriesByParentId(gid);

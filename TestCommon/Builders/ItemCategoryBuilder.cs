@@ -1,17 +1,17 @@
 using System;
 using DonateMe.BusinessDomain.Entities;
 
-namespace DonateMe.DataLayer.Tests.Builders
+namespace TestCommon.Builders
 {
     public class ItemCategoryBuilder
     {
         private Guid _id;
         private string _name;
 
-        public ItemCategoryBuilder()
+        public ItemCategoryBuilder(string name = "MyItemCategory")
         {
             _id = Guid.NewGuid();
-            _name = "MyItemCategory";
+            _name = name;
         }
 
         public ItemCategoryBuilder WithIdAndName(string id, string name)
@@ -25,6 +25,12 @@ namespace DonateMe.DataLayer.Tests.Builders
         {
             ItemCategory parent = new ItemCategory(_id, _name);
             return parent;
+        }
+
+        public ItemCategoryBuilder With(string name)
+        {
+            _name = name;
+            return this;
         }
     }
 }

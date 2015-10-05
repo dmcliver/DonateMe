@@ -43,11 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\ItemCategoryBuilder.cs" />
+    <Compile Include="Builders\ItemCategoryRelationBuilder.cs" />
     <Compile Include="Mock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DonateMe.BusinessDomain\DonateMe.BusinessDomain.csproj">
+      <Project>{3236EEF8-A9A1-42C4-9387-12D165B223CF}</Project>
+      <Name>DonateMe.BusinessDomain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
