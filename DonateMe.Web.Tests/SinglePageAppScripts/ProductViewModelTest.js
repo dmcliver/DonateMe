@@ -29,7 +29,11 @@ describe("Product ViewModel", function() {
 
     it("Should update observable array with product info when data is present", function() {
 
-        var message = "";
+        var firstModelName = "Guitar";
+        var secondModelName = "Amp";
+        var thirdModelName = "Drums";
+
+        var message;
         var info = [];
         var selectedTreeNode = { node: { id: null } };
         var repo = ProductRepositoryMock();
@@ -49,10 +53,14 @@ describe("Product ViewModel", function() {
         expect(productsByIdCalls.length).toBe(1);
 
         var viewModelCallback = productsByIdCalls[0][1];
-        var serverSideData = [{Name: "Guitar"}, {Name: "Amp"}, {Name: "Drums"}];
+        
+        var serverSideData = [{Name: firstModelName}, {Name: secondModelName}, {Name: thirdModelName}];
         viewModelCallback.execute(serverSideData);
 
         expect(info.length).toBe(3);
+        expect(info[0].value).toBe(firstModelName);
+        expect(info[1].value).toBe(secondModelName);
+        expect(info[2].value).toBe(thirdModelName);
+        expect(message).toBeFalsy();
     });
 });
-
