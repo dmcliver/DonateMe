@@ -74,6 +74,13 @@
       <Name>TestCommon</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\jasmine.css" />
+    <Content Include="Scripts\jasmine-html.js" />
+    <Content Include="Scripts\jasmine.js" />
+    <Content Include="SinglePageAppScripts\ProductRepositoryMock.js" />
+    <Content Include="SinglePageAppScripts\ProductViewModelTest.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,13 +1,14 @@
 ﻿"use strict";
 
-function ProductRepository() {
+function ProductRepository(jq) {
+
+    jq = jq || jQuery;
 
     this.getProductsById = function (id, command) {
 
-        $.getJSON("/Api/Item", { "id": id })
-         .done(function (data) {
-
-             command.execute(data);
-         });
+        jq.getJSON("/Api/Item", { "id": id })
+          .done(function (data) {
+              command.execute(data);
+          });
     }
 }
