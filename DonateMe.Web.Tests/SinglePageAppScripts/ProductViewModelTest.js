@@ -1,17 +1,26 @@
 ﻿///<reference path="../../DonateMe/Scripts/knockout-2.2.0.js"/>
 ///<reference path="../../DonateMe/SinglePageAppScripts/ProductViewModel.js"/>
-///<reference path="../SinglePageAppScripts/ProductRepositoryMock.js"/>
+///<reference path="Mocks/ProductRepositoryMock.js"/>
 ///<reference path="../Scripts/jasmine.js"/>
 
 describe("Product ViewModel", function() {
+
+    "use strict";
 
     it("Should display message if no data found", function() {
 
         var message = "";
         var selectedTreeNode = { node: { id: null } };
-        var repo = ProductRepositoryMock();
+        var repo = new ProductRepositoryMock();
+
+        var info = [];
 
         var viewModel = new ProductViewModel(repo);
+        viewModel.info = {
+
+            removeAll: function () { },
+            push: function (obj) { info.push(obj); }
+        };
         viewModel.message = function(m) {
             message = m;
         };
@@ -25,6 +34,7 @@ describe("Product ViewModel", function() {
         viewModelCallback.execute(serverSideData);
 
         expect(message).toBe("No products to display");
+        expect(info.length).toBe(0);
     });
 
     it("Should update observable array with product info when data is present", function() {
@@ -33,10 +43,10 @@ describe("Product ViewModel", function() {
         var secondModelName = "Amp";
         var thirdModelName = "Drums";
 
-        var message;
+        var message = "No products to be display";
         var info = [];
         var selectedTreeNode = { node: { id: null } };
-        var repo = ProductRepositoryMock();
+        var repo = new ProductRepositoryMock();
 
         var viewModel = new ProductViewModel(repo);
         viewModel.info = {

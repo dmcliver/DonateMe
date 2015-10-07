@@ -9,6 +9,9 @@ function ProductRepository(jq) {
         jq.getJSON("/Api/Item", { "id": id })
           .done(function (data) {
               command.execute(data);
+          })
+          .fail(function(err) {
+                throw new Error(err);
           });
     }
 }
