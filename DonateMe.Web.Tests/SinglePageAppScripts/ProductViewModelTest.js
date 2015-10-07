@@ -13,8 +13,11 @@ describe("Product ViewModel", function() {
         spyOn(window.ProductRepository, "getProductsById");
 
         var viewModel = window.ProductViewModel;
-        viewModel.info = jasmine.createSpyObj("info", ["removeAll", "push"]);
-        viewModel.message = jasmine.createSpy("message");
+
+        spyOn(viewModel.info, "removeAll");
+        spyOn(viewModel.info, "push");
+        spyOn(viewModel, "message");
+
         viewModel.getProducts(null, null, selectedTreeNode);
 
         var productsByIdCalls = window.ProductRepository.getProductsById.calls;
@@ -41,8 +44,11 @@ describe("Product ViewModel", function() {
         spyOn(window.ProductRepository, "getProductsById");
 
         var viewModel = window.ProductViewModel;
-        viewModel.info = jasmine.createSpyObj("info", ["removeAll", "push"]);
-        viewModel.message = jasmine.createSpy("message");
+
+        spyOn(viewModel.info, "removeAll");
+        spyOn(viewModel.info, "push");
+        spyOn(viewModel, "message");
+
         viewModel.getProducts(null, null, selectedTreeNode);
 
         var productsByIdCalls = window.ProductRepository.getProductsById.calls;
