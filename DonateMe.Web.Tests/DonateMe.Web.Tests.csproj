@@ -79,8 +79,6 @@
     <Content Include="Scripts\jasmine-html.js" />
     <Content Include="Scripts\jasmine.js" />
     <Content Include="SinglePageAppScripts\Mocks\AjaxResponseMock.js" />
-    <Content Include="SinglePageAppScripts\Mocks\JsQueryMock.js" />
-    <Content Include="SinglePageAppScripts\Mocks\ProductRepositoryMock.js" />
     <Content Include="SinglePageAppScripts\ProductRepositoryTest.js" />
     <Content Include="SinglePageAppScripts\ProductViewModelTest.js" />
   </ItemGroup>

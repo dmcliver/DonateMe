@@ -1,16 +1,16 @@
 ﻿"use strict";
 
-function ProductViewModel(prodRepo) {
+(function() {
 
-    prodRepo = prodRepo || new ProductRepository(jQuery);
+    var prodRepo = window.ProductRepository;
 
-    var self = this;
+    var self = {};
 
     self.info = ko.observableArray();
 
     self.message = ko.observable();
 
-    function loadData(data) {
+    var loadData = function (data) {
 
         self.info.removeAll();
         self.message("");
@@ -27,6 +27,8 @@ function ProductViewModel(prodRepo) {
     }
 
     self.getProducts = function (caller, elem, data) {
-        prodRepo.getProductsById(data.node.id, {execute: loadData});
+        prodRepo.getProductsById(data.node.id, { execute: loadData });
     }
-}
+
+    window.ProductViewModel = self;
+})();

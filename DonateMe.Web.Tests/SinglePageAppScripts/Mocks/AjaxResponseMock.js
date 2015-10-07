@@ -17,6 +17,7 @@
     self.getCompleteArgument = function() {
         return notifyCompleteCaptor;
     }
+
     self.done = function(notifyDone) {
         notifyDoneCaptor = notifyDone;
         return self;

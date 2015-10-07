@@ -1,6 +1,6 @@
-﻿///<reference path="../../DonateMe/SinglePageAppScripts/ProductRepository.js"/>
+﻿///<reference path="../../DonateMe/Scripts/jquery-1.9.1.js"/>
+///<reference path="../../DonateMe/SinglePageAppScripts/ProductRepository.js"/>
 ///<reference path="Mocks/AjaxResponseMock.js"/>
-///<reference path="Mocks/JsQueryMock.js"/>
 ///<reference path="../Scripts/jasmine.js"/>
 
 describe("Product Repository", function() {
@@ -11,14 +11,19 @@ describe("Product Repository", function() {
 
         var errorMessage = "Something went horribly wrong";
 
-        var cmd = jasmine.createSpyObj(null, ["execute"]);
+        var ajaxResponse = new AjaxResponseMock();
 
-        var repo = new ProductRepository(JsQueryMock);
+        var cmd = jasmine.createSpyObj(null, ["execute"]);
+        spyOn($, "getJSON");
+
+        $.getJSON.andReturn(ajaxResponse);
+
+        var repo = window.ProductRepository;
         expect(function () {
 
             repo.getProductsById(null, cmd);
 
-            var failureCallback = JsQueryMock.getJsonFailArgument();
+            var failureCallback = ajaxResponse.getFailArgument();
             failureCallback(errorMessage);
         })
         .toThrow(errorMessage);
@@ -30,14 +35,19 @@ describe("Product Repository", function() {
 
         var testData = "Server side data";
 
-        var cmd = jasmine.createSpyObj(null, ["execute"]);
+        var ajaxResponse = new AjaxResponseMock();
 
-        var repo = new ProductRepository(JsQueryMock);
+        var cmd = jasmine.createSpyObj(null, ["execute"]);
+        spyOn($, "getJSON");
+
+        $.getJSON.andReturn(ajaxResponse);
+
+        var repo = window.ProductRepository;
         expect(function() {
 
             repo.getProductsById(null, cmd);
 
-            var successCallback = JsQueryMock.getJsonDoneArgument();
+            var successCallback = ajaxResponse.getDoneArgument();
             successCallback(testData);
         })
         .not.toThrow();
@@ -45,4 +55,3 @@ describe("Product Repository", function() {
         expect(cmd.execute).toHaveBeenCalledWith(testData);
     });
 });
-

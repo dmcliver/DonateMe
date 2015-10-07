@@ -1,6 +1,6 @@
 ﻿///<reference path="../../DonateMe/Scripts/knockout-2.2.0.js"/>
+///<reference path="../../DonateMe/SinglePageAppScripts/ProductRepository.js"/>
 ///<reference path="../../DonateMe/SinglePageAppScripts/ProductViewModel.js"/>
-///<reference path="Mocks/ProductRepositoryMock.js"/>
 ///<reference path="../Scripts/jasmine.js"/>
 
 describe("Product ViewModel", function() {
@@ -9,32 +9,25 @@ describe("Product ViewModel", function() {
 
     it("Should display message if no data found", function() {
 
-        var message = "";
         var selectedTreeNode = { node: { id: null } };
-        var repo = new ProductRepositoryMock();
+        spyOn(window.ProductRepository, "getProductsById");
 
-        var info = [];
-
-        var viewModel = new ProductViewModel(repo);
-        viewModel.info = {
-
-            removeAll: function () { },
-            push: function (obj) { info.push(obj); }
-        };
-        viewModel.message = function(m) {
-            message = m;
-        };
+        var viewModel = window.ProductViewModel;
+        viewModel.info = jasmine.createSpyObj("info", ["removeAll", "push"]);
+        viewModel.message = jasmine.createSpy("message");
         viewModel.getProducts(null, null, selectedTreeNode);
 
-        var productsByIdCalls = repo.getProductsByIdCalls();
+        var productsByIdCalls = window.ProductRepository.getProductsById.calls;
         expect(productsByIdCalls.length).toBe(1);
 
-        var viewModelCallback = productsByIdCalls[0][1];
+        var viewModelCallback = productsByIdCalls[0].args[1];
         var serverSideData = [];
         viewModelCallback.execute(serverSideData);
 
-        expect(message).toBe("No products to display");
-        expect(info.length).toBe(0);
+        expect(viewModel.info.removeAll.calls.length).toBe(1);
+        expect(viewModel.message.calls.length).toBe(2);
+        expect(viewModel.message.calls[1].args[0]).toBe("No products to display");
+        expect(viewModel.info.push.calls.length).toBe(0);
     });
 
     it("Should update observable array with product info when data is present", function() {
@@ -43,34 +36,28 @@ describe("Product ViewModel", function() {
         var secondModelName = "Amp";
         var thirdModelName = "Drums";
 
-        var message = "No products to be display";
-        var info = [];
         var selectedTreeNode = { node: { id: null } };
-        var repo = new ProductRepositoryMock();
 
-        var viewModel = new ProductViewModel(repo);
-        viewModel.info = {
+        spyOn(window.ProductRepository, "getProductsById");
 
-            removeAll: function () { },
-            push: function (obj) { info.push(obj); }
-        };
-        viewModel.message = function (m) {
-            message = m;
-        };
+        var viewModel = window.ProductViewModel;
+        viewModel.info = jasmine.createSpyObj("info", ["removeAll", "push"]);
+        viewModel.message = jasmine.createSpy("message");
         viewModel.getProducts(null, null, selectedTreeNode);
 
-        var productsByIdCalls = repo.getProductsByIdCalls();
+        var productsByIdCalls = window.ProductRepository.getProductsById.calls;
         expect(productsByIdCalls.length).toBe(1);
 
-        var viewModelCallback = productsByIdCalls[0][1];
+        var viewModelCallback = productsByIdCalls[0].args[1];
         
         var serverSideData = [{Name: firstModelName}, {Name: secondModelName}, {Name: thirdModelName}];
         viewModelCallback.execute(serverSideData);
 
-        expect(info.length).toBe(3);
-        expect(info[0].value).toBe(firstModelName);
-        expect(info[1].value).toBe(secondModelName);
-        expect(info[2].value).toBe(thirdModelName);
-        expect(message).toBeFalsy();
+        expect(viewModel.info.removeAll.calls.length).toBe(1);
+        expect(viewModel.info.push.calls.length).toBe(3);
+        expect(viewModel.info.push.calls[0].args[0].value).toBe(firstModelName);
+        expect(viewModel.info.push.calls[1].args[0].value).toBe(secondModelName);
+        expect(viewModel.info.push.calls[2].args[0].value).toBe(thirdModelName);
+        expect(viewModel.message.calls.length).toBe(1);
     });
 });
