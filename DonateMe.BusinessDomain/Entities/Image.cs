@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DonateMe.BusinessDomain.Entities
 {
@@ -20,10 +22,11 @@ namespace DonateMe.BusinessDomain.Entities
         {
         }
 
-        public int ItemId { get; private set; }
-
         public Guid ImageId { get; private set; }
+        
         public UriType UriPath { get; private set; }
+        
+        public int ItemId { get; private set; }
         public Item Item { get; private set; }
     }
 }

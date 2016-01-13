@@ -8,12 +8,12 @@ using DonateMe.Common;
 namespace DonateMe.DataLayer.Repositories
 {
     [Injected]
-    public interface ItemCategoryRelationDAO
+    public interface ItemCategoryDAO
     {
         /// <summary>
         /// Gets the top level categories with sub categories i.e. all the parents
         /// </summary>
-        IEnumerable<ItemCategory> GetTopLevelCategoriesWithChildren();
+        IEnumerable<ItemCategoryCount> GetTopLevelCategoriesWithChildren();
 
         /// <summary>
         /// Gets the child categories by the parent id.
@@ -24,6 +24,6 @@ namespace DonateMe.DataLayer.Repositories
         /// Gets the top level categories containing no subcategories.
         /// <returns>The Category containing a count the sub categories this sub category has</returns>
         /// </summary>
-        IEnumerable<ItemCategory> GetTopLevelCategoriesWithNoChildren();
+        IEnumerable<ItemCategoryCount> GetTopLevelCategoriesWithNoChildren();
     }
 }

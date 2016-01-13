@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+}
+
+@RenderSection("featured", false)
+
+@Scripts.Render("~/bundles/jstree")
+@Scripts.Render("~/bundles/ProductMvvm")
+
+<script type="text/javascript">
+    ko.applyBindings(window.ProductViewModel);
+</script>
+
+<div id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
+
+<button data-bind="click: getProducts">Click</button>
+
+@RenderBody()

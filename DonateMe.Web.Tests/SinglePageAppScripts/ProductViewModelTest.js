@@ -7,9 +7,9 @@ describe("Product ViewModel", function() {
 
     "use strict";
 
-    it("Should display message if no data found", function() {
+    it("Should reset previous message & data & display message if no new data found", function() {
 
-        var selectedTreeNode = { node: { id: null } };
+        var selectedProductTreeNode = { node: { id: "ProdId001" } };
         spyOn(window.ProductRepository, "getProductsById");
 
         var viewModel = window.ProductViewModel;
@@ -18,7 +18,7 @@ describe("Product ViewModel", function() {
         spyOn(viewModel.info, "push");
         spyOn(viewModel, "message");
 
-        viewModel.getProducts(null, null, selectedTreeNode);
+        viewModel.getProducts(null, null, selectedProductTreeNode);
 
         var productsByIdCalls = window.ProductRepository.getProductsById.calls;
         expect(productsByIdCalls.length).toBe(1);
@@ -33,13 +33,13 @@ describe("Product ViewModel", function() {
         expect(viewModel.info.push.calls.length).toBe(0);
     });
 
-    it("Should update observable array with product info when data is present", function() {
+    it("Should reset message & data array & update the array with product info when new data is present", function() {
 
         var firstModelName = "Guitar";
         var secondModelName = "Amp";
         var thirdModelName = "Drums";
 
-        var selectedTreeNode = { node: { id: null } };
+        var selectedProudctTreeNode = { node: { id: "ProdId001" } };
 
         spyOn(window.ProductRepository, "getProductsById");
 
@@ -49,7 +49,7 @@ describe("Product ViewModel", function() {
         spyOn(viewModel.info, "push");
         spyOn(viewModel, "message");
 
-        viewModel.getProducts(null, null, selectedTreeNode);
+        viewModel.getProducts(null, null, selectedProudctTreeNode);
 
         var productsByIdCalls = window.ProductRepository.getProductsById.calls;
         expect(productsByIdCalls.length).toBe(1);

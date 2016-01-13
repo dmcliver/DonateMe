@@ -1,36 +1,41 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DonateMe.BusinessDomain.Entities
 {
+    [Table("Item")]
     public class Item
     {
         private Brand _brand;
 
-        public Item(string name, ItemCategoryRelation itemCategoryRelation)
+        public Item(string name, ItemCategory parentItemCategory)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException("name");
-            if (itemCategoryRelation == null) throw new ArgumentNullException("itemCategoryRelation");
+            if (parentItemCategory == null) throw new ArgumentNullException("parentItemCategory");
 
             Name = name;
-            ItemCategoryRelation = itemCategoryRelation;
-
-            ChildId = itemCategoryRelation.ChildId;
-            ParentId = itemCategoryRelation.ParentId;
+            ParentItemCategory = parentItemCategory;
+            ParentId = parentItemCategory.ItemCategoryId;
         }
 
         protected Item() {}
 
+        [Key]
         public int ItemId { get; private set; }
+
+        [Required]
         public string Name { get; private set; }
+
+        [Column]
         public string Description { get; set; }
+        
+        [Column]
         public string Model { get; set; }
 
-        public Guid ParentId { get; private set; }
-        public Guid ChildId { get; private set; }
         public int? BrandId { get; private set; }
 
-        public ItemCategoryRelation ItemCategoryRelation { get; private set; }
-
+        [ForeignKey("BrandId")]
         public Brand Brand
         {
             get { return _brand; }
@@ -44,9 +49,9 @@ namespace DonateMe.BusinessDomain.Entities
             }
         }
 
-        public ItemCategory Category
-        {
-            get { return ItemCategoryRelation == null ? null : ItemCategoryRelation.Child; }
-        }
+        public Guid ParentId { get; set; }
+
+        [ForeignKey("ParentId")]
+        public ItemCategory ParentItemCategory { get; private set; }
     }
 }

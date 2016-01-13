@@ -6,14 +6,14 @@
 describe("Product Repository", function() {
 
     "use strict";
-
+        
     it("Should re-throw error if one is generated", function() {
 
-        var errorMessage = "Something went horribly wrong";
+        var errorResponse = { status: 404, statusText: "error" };
 
         var ajaxResponse = new AjaxResponseMock();
 
-        var cmd = jasmine.createSpyObj(null, ["execute"]);
+        var command = jasmine.createSpyObj("ICommand", ["execute"]);
         spyOn($, "getJSON");
 
         $.getJSON.andReturn(ajaxResponse);
@@ -21,14 +21,14 @@ describe("Product Repository", function() {
         var repo = window.ProductRepository;
         expect(function () {
 
-            repo.getProductsById(null, cmd);
+            repo.getProductsById(null, command);
 
             var failureCallback = ajaxResponse.getFailArgument();
-            failureCallback(errorMessage);
+            failureCallback(errorResponse);
         })
-        .toThrow(errorMessage);
+        .toThrow("404 error from ProductRepository::getProductsById calling url:/Api/Item");
 
-        expect(cmd.execute).not.toHaveBeenCalled();
+        expect(command.execute).not.toHaveBeenCalled();
     });
 
     it("Should call callback if received without error", function () {
@@ -37,7 +37,7 @@ describe("Product Repository", function() {
 
         var ajaxResponse = new AjaxResponseMock();
 
-        var cmd = jasmine.createSpyObj(null, ["execute"]);
+        var command = jasmine.createSpyObj("ICommand", ["execute"]);
         spyOn($, "getJSON");
 
         $.getJSON.andReturn(ajaxResponse);
@@ -45,13 +45,13 @@ describe("Product Repository", function() {
         var repo = window.ProductRepository;
         expect(function() {
 
-            repo.getProductsById(null, cmd);
+            repo.getProductsById(null, command);
 
             var successCallback = ajaxResponse.getDoneArgument();
             successCallback(testData);
         })
         .not.toThrow();
 
-        expect(cmd.execute).toHaveBeenCalledWith(testData);
+        expect(command.execute).toHaveBeenCalledWith(testData);
     });
 });

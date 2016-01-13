@@ -10,19 +10,15 @@ namespace DonateMe.DataLayer
     {
         public DbContextImpl() : base("DonateMeDb")
         {
-            Database.SetInitializer(new NullDatabaseInitializer<DbContextImpl>());
+            Database.SetInitializer(new DbInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            ItemCategoryMapping.ConfigureCategory(modelBuilder);
-            ItemCategoryRelationMapping.ConfigureCategoryRelation(modelBuilder);
-            ItemMapping.ConfigureItem(modelBuilder);
             ImageMapping.ConfigureImage(modelBuilder);
             BrandMapping.ConfigureBrand(modelBuilder);
-            UserProfileMappping.ConfigureProfile(modelBuilder);
 
             modelBuilder.ComplexType<UriType>();
         }

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Jasmine Spec Runner</title>
+    <link rel="stylesheet" href="file:///C:/Users/win8user/AppData/Local/Microsoft/VisualStudio/11.0/Extensions/iivw5e21.qvg/TestFiles/jasmine/jasmine.css" type="text/css"/>
+<script type="text/javascript" src="file:///C:/Users/win8user/AppData/Local/Microsoft/VisualStudio/11.0/Extensions/iivw5e21.qvg/TestFiles/jasmine/jasmine.js"></script>
+<script type="text/javascript" src="file:///C:/Users/win8user/AppData/Local/Microsoft/VisualStudio/11.0/Extensions/iivw5e21.qvg/TestFiles/jasmine/jasmine-html.js"></script>
+<link rel="shortcut icon" type="image/png" href="file:///C:/Users/win8user/AppData/Local/Microsoft/VisualStudio/11.0/Extensions/iivw5e21.qvg/TestFiles/jasmine/jasmine_favicon.png">
+
+    
+    <script type="text/javascript" src="file:///C:/Users/win8user/Documents/Visual Studio 2012/Projects/Git/DonateMe/DonateMe/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="file:///C:/Users/win8user/Documents/Visual Studio 2012/Projects/Git/DonateMe/DonateMe/SinglePageAppScripts/ProductRepository.js"></script>
+<script type="text/javascript" src="file:///C:/Users/win8user/Documents/Visual Studio 2012/Projects/Git/DonateMe/DonateMe.Web.Tests/SinglePageAppScripts/Mocks/AjaxResponseMock.js"></script>
+
+    <script type="text/javascript" src="file:///C:/Users/win8user/Documents/Visual Studio 2012/Projects/Git/DonateMe/DonateMe.Web.Tests/SinglePageAppScripts/ProductRepositoryTest.js"></script>
+
+    <script type="text/javascript">      
+        (function () {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+            
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function () {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                
+                jasmineEnv.execute();
+            };
+
+        })();
+    </script>
+</head>
+<body>
+</body>
+</html>

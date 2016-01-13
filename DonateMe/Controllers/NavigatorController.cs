@@ -11,15 +11,15 @@ namespace DonateMe.Web.Controllers
 {
     public class NavigatorController : ApiController
     {
-        private readonly ItemCategoryRelationDAO _itemCategoryRelationDAO;
+        private readonly ItemCategoryDAO _itemCategoryDAO;
 
         /// <summary>
         /// Constructor for NavigatorController that has it's dependencies injected from IoC Container
         /// </summary>
-        public NavigatorController(ItemCategoryRelationDAO itemCategoryRelationDAO)
+        public NavigatorController(ItemCategoryDAO itemCategoryDAO)
         {
-            if (itemCategoryRelationDAO == null) throw new ArgumentNullException("itemCategoryRelationDAO");
-            _itemCategoryRelationDAO = itemCategoryRelationDAO;
+            if (itemCategoryDAO == null) throw new ArgumentNullException("itemCategoryDAO");
+            _itemCategoryDAO = itemCategoryDAO;
         }
 
         // GET api/navigator?id=5
@@ -30,14 +30,14 @@ namespace DonateMe.Web.Controllers
 
             if (isTopLevel)
             {
-                IEnumerable<ItemCategory> topLevelCategories = _itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren();
+                IEnumerable<ItemCategoryCount> topLevelCategories = _itemCategoryDAO.GetTopLevelCategoriesWithChildren();
                 IEnumerable<ItemNodeModel> itemNodeModels = topLevelCategories.Select(c => new ItemNodeModel(c.Name, c.ItemCategoryId, true));
                 
-                topLevelCategories = _itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren();
+                topLevelCategories = _itemCategoryDAO.GetTopLevelCategoriesWithNoChildren();
                 return itemNodeModels.Concat(topLevelCategories.Select(c => new ItemNodeModel(c.Name, c.ItemCategoryId, false)));
             }
 
-            IEnumerable<ItemCategoryCount> childCategories = _itemCategoryRelationDAO.GetChildCategoriesByParentId(gid);
+            IEnumerable<ItemCategoryCount> childCategories = _itemCategoryDAO.GetChildCategoriesByParentId(gid);
             return childCategories.Select(c => new ItemNodeModel(c, c.AnyChildren()));
         }
     }

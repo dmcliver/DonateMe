@@ -21,9 +21,9 @@ namespace DonateMe.Web.Tests.Controllers
         [Test]
         public void Get_WithNoCategoryIdAndTopLevelHavingNoChildren_ReturnsChildlessTopLevelCategoriesOnly()
         {
-            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryRelationDAO>();
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategory>());
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategory>{_itemCategoryBuilder.Build()});
+            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryDAO>();
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategoryCount>());
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategoryCount>{_itemCategoryBuilder.Build()});
 
             var controller = new NavigatorController(itemCategoryRelationDAO);
             IEnumerable<ItemNodeModel> itemNodeModels = controller.Get("null");
@@ -35,9 +35,9 @@ namespace DonateMe.Web.Tests.Controllers
         [Test]
         public void Get_WithNoCategoryIdAndTopLevelHavingChildren_ReturnsParentTopLevelCategoriesOnly()
         {
-            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryRelationDAO>();
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategory> { new ItemCategoryBuilder().Build() });
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategory>());
+            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryDAO>();
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategoryCount> { new ItemCategoryBuilder().Build() });
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategoryCount>());
 
             var controller = new NavigatorController(itemCategoryRelationDAO);
             IEnumerable<ItemNodeModel> itemNodeModels = controller.Get("null");
@@ -49,9 +49,9 @@ namespace DonateMe.Web.Tests.Controllers
         [Test]
         public void Get_WithNoCategoryIdAndNoTopLevelCategories_ReturnsEmptyList()
         {
-            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryRelationDAO>();
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategory>());
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategory>());
+            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryDAO>();
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategoryCount>());
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategoryCount>());
 
             NavigatorController controller = new NavigatorController(itemCategoryRelationDAO);
             IEnumerable<ItemNodeModel> itemNodeModels = controller.Get(null);
@@ -65,9 +65,9 @@ namespace DonateMe.Web.Tests.Controllers
         {
             const string expectedSecondItemName = "MyItemCategory2";
 
-            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryRelationDAO>();
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategory>{_itemCategoryBuilder.Build()});
-            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategory> { _itemCategoryBuilder.With(expectedSecondItemName).Build() });
+            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryDAO>();
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().Returns(new List<ItemCategoryCount> { _itemCategoryBuilder.Build() });
+            itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().Returns(new List<ItemCategoryCount> { _itemCategoryBuilder.With(expectedSecondItemName).Build() });
 
             var controller = new NavigatorController(itemCategoryRelationDAO);
             IEnumerable<ItemNodeModel> itemNodeModels = controller.Get("null").ToList();
@@ -84,7 +84,7 @@ namespace DonateMe.Web.Tests.Controllers
             var id = Guid.NewGuid();
             const string expectedModelName = "Houses";
 
-            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryRelationDAO>();
+            var itemCategoryRelationDAO = Mock.Instantiate<ItemCategoryDAO>();
             itemCategoryRelationDAO.GetChildCategoriesByParentId(id).Returns(new List<ItemCategoryCount>{new ItemCategoryCount(expectedModelName, Guid.NewGuid(), 1)});
 
             var controller = new NavigatorController(itemCategoryRelationDAO);

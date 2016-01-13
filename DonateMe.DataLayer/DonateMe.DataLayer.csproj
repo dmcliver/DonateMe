@@ -57,15 +57,11 @@
     <Compile Include="IDbProxyContext.cs" />
     <Compile Include="Mappings\BrandMapping.cs" />
     <Compile Include="Mappings\ImageMapping.cs" />
-    <Compile Include="Mappings\ItemCategoryMapping.cs" />
-    <Compile Include="Mappings\ItemCategoryRelationMapping.cs" />
-    <Compile Include="Mappings\ItemMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ItemCategoryRelationDAO.cs" />
+    <Compile Include="Repositories\ItemCategoryDAO.cs" />
     <Compile Include="Repositories\ItemDAO.cs" />
-    <Compile Include="Repositories\ItemCategoryRelationDAOImpl.cs" />
+    <Compile Include="Repositories\ItemCategoryDAOImpl.cs" />
     <Compile Include="Repositories\ItemDAOImpl.cs" />
-    <Compile Include="Mappings\UserProfileMappping.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

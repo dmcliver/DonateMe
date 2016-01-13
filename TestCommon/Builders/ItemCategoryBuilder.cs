@@ -1,4 +1,5 @@
 using System;
+using DonateMe.BusinessDomain;
 using DonateMe.BusinessDomain.Entities;
 
 namespace TestCommon.Builders
@@ -21,9 +22,9 @@ namespace TestCommon.Builders
             return this;
         }
 
-        public ItemCategory Build()
+        public ItemCategoryCount Build()
         {
-            ItemCategory parent = new ItemCategory(_id, _name);
+            ItemCategoryCount parent = new ItemCategoryCount(_name, _id, 0);
             return parent;
         }
 

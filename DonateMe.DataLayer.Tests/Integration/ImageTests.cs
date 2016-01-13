@@ -46,23 +46,21 @@ namespace DonateMe.DataLayer.Tests.Integration
             var child = new ItemCategory(Guid.NewGuid(), "Instruments");
             var parent = new ItemCategory(Guid.NewGuid(), "Music");
 
-            var itemCategoryRelation = new ItemCategoryRelation(parent, child);
+            var itemCategoryRelation = new ItemCategory(Guid.NewGuid(), "Instruments");
 
             var item = new Item("Guitar", itemCategoryRelation);
 
             Image img = new Image(Guid.NewGuid(), new UriType(Path), item);
 
-            AddEntities(context, child, parent, itemCategoryRelation, item, img);
+           // AddEntities(context, child, parent, itemCategoryRelation, item, img);
         }
 
         private static void AddEntities(
-            DbContextImpl context, ItemCategory child, ItemCategory parent,
-            ItemCategoryRelation itemCategoryRelation, Item item, Image img
+            DbContextImpl context, ItemCategory child, ItemCategory parent, Item item, Image img
         )
         {
             context.Set<ItemCategory>().Add(child);
             context.Set<ItemCategory>().Add(parent);
-            context.Set<ItemCategoryRelation>().Add(itemCategoryRelation);
             context.Set<Item>().Add(item);
             context.Set<Image>().Add(img);
         }

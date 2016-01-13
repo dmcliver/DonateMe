@@ -44,7 +44,6 @@
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\ItemCategory.cs" />
-    <Compile Include="Entities\ItemCategoryRelation.cs" />
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="ItemCategoryCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

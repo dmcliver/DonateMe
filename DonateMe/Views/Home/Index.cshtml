@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_ItemLayout.cshtml";
 }
 @section featured {
 
@@ -11,23 +12,11 @@
                 <h2>@ViewBag.Message</h2>
             </hgroup>
 
-            <p><b>W</b>elcome</p>
+            <p>Welcome</p>
 
         </div>
     </section>
 }
-
-@section scripts{
-
-    @Scripts.Render("~/bundles/jstree")
-    @Scripts.Render("~/bundles/ProductMvvm")
-
-    <script type="text/javascript">
-        ko.applyBindings(window.ProductViewModel);
-    </script>
-}
-
-<div id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
 
 <p><span data-bind="text: message"></span></p>
 

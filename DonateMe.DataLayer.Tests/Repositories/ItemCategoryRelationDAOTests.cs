@@ -4,7 +4,6 @@ using System.Linq;
 using DonateMe.BusinessDomain;
 using DonateMe.BusinessDomain.Entities;
 using DonateMe.DataLayer.Repositories;
-using DonateMe.DataLayer.Tests.Builders;
 using NLog;
 using NSubstitute;
 using NUnit.Framework;
@@ -15,7 +14,6 @@ namespace DonateMe.DataLayer.Tests.Repositories
 {
     public class ItemCategoryRelationDAOTests
     {
-        private readonly ItemCategoryRelationBuilder _builder = new ItemCategoryRelationBuilder();
         private readonly ItemCategoryBuilder _itemCategoryBuilder = new ItemCategoryBuilder();
 
         private const string Id = "A3C7A21C-4C61-4A7A-B7D3-3B7D6EFA6F8A";
@@ -23,10 +21,10 @@ namespace DonateMe.DataLayer.Tests.Repositories
         private const string MusicInstrumentCategory = "Instruments";
         private const string MusicCategory = "Music";
 
-        private ItemCategory _musicParent;
-        private ItemCategory _musicChild ;
-        private ItemCategory _musicChild2;
-        private ItemCategory _musicGrandChild;
+        private ItemCategoryCount _musicParent;
+        private ItemCategoryCount _musicChild ;
+        private ItemCategoryCount _musicChild2;
+        private ItemCategoryCount _musicGrandChild;
 
         [SetUp]
         public void Init()
@@ -42,13 +40,10 @@ namespace DonateMe.DataLayer.Tests.Repositories
         {
             IDbProxyContext context = Mock.Instantiate<IDbProxyContext>();
 
-            List<ItemCategory> categories = new List<ItemCategory> { _musicParent, _musicChild, _musicChild2, _musicGrandChild };
-            context.Set<ItemCategory>().Returns(categories.AsQueryable());
+            List<ItemCategoryCount> categories = new List<ItemCategoryCount> { _musicParent, _musicChild, _musicChild2, _musicGrandChild };
+            context.Set<ItemCategoryCount>().Returns(categories.AsQueryable());
 
-            List<ItemCategoryRelation> itemCategoryRelations = BuildItemCategoryRelations(_musicParent, _musicChild, _musicChild2, _musicGrandChild);
-            context.Set<ItemCategoryRelation>().Returns(itemCategoryRelations.AsQueryable());
-
-            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.Instantiate<ILogger>());
+            var itemCategoryRelationDAO = new ItemCategoryDAOImpl(context, Mock.Instantiate<ILogger>());
             IEnumerable<ItemCategoryCount> categoryCounts = itemCategoryRelationDAO.GetChildCategoriesByParentId(Guid.Parse(Id)).ToList();
 
             Assert.That(categoryCounts.Count(), Is.EqualTo(2));
@@ -63,17 +58,14 @@ namespace DonateMe.DataLayer.Tests.Repositories
 
             IDbProxyContext context = Mock.Instantiate<IDbProxyContext>();
 
-            List<ItemCategory> categories = new List<ItemCategory>
+            List<ItemCategoryCount> categories = new List<ItemCategoryCount>
             {
-                _musicParent, _musicChild, _musicChild2, _musicGrandChild, BuildItemCategory(expectedItemName)
+                _musicParent, _musicChild, _musicChild2, _musicGrandChild//, BuildItemCategory(expectedItemName)
             };
-            context.Set<ItemCategory>().Returns(categories.AsQueryable());
+            context.Set<ItemCategoryCount>().Returns(categories.AsQueryable());
 
-            List<ItemCategoryRelation> itemCategoryRelations = BuildItemCategoryRelations(_musicParent, _musicChild, _musicChild2, _musicGrandChild);
-            context.Set<ItemCategoryRelation>().Returns(itemCategoryRelations.AsQueryable());
-
-            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.Instantiate<ILogger>());
-            List<ItemCategory> itemCategories = itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().ToList();
+            var itemCategoryRelationDAO = new ItemCategoryDAOImpl(context, Mock.Instantiate<ILogger>());
+            List<ItemCategoryCount> itemCategories = itemCategoryRelationDAO.GetTopLevelCategoriesWithNoChildren().ToList();
             
             Assert.That(itemCategories.Count, Is.EqualTo(1));
             Assert.That(itemCategories[0].Name, Is.EqualTo(expectedItemName));
@@ -84,36 +76,24 @@ namespace DonateMe.DataLayer.Tests.Repositories
         {
             IDbProxyContext context = Mock.Instantiate<IDbProxyContext>();
 
-            List<ItemCategory> categories = new List<ItemCategory>
+            List<ItemCategoryCount> categories = new List<ItemCategoryCount>
             {
-                _musicParent, _musicChild, _musicChild2, _musicGrandChild, BuildItemCategory("Books")
+                _musicParent, _musicChild, _musicChild2, _musicGrandChild//, BuildItemCategory("Books")
             };
-            context.Set<ItemCategory>().Returns(categories.AsQueryable());
+            context.Set<ItemCategoryCount>().Returns(categories.AsQueryable());
 
-            List<ItemCategoryRelation> itemCategoryRelations = BuildItemCategoryRelations(_musicParent, _musicChild, _musicChild2, _musicGrandChild);
-            context.Set<ItemCategoryRelation>().Returns(itemCategoryRelations.AsQueryable());
-
-            var itemCategoryRelationDAO = new ItemCategoryRelationDAOImpl(context, Mock.Instantiate<ILogger>());
-            List<ItemCategory> itemCategories = itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().ToList();
+            var itemCategoryRelationDAO = new ItemCategoryDAOImpl(context, Mock.Instantiate<ILogger>());
+            List<ItemCategoryCount> itemCategories = itemCategoryRelationDAO.GetTopLevelCategoriesWithChildren().ToList();
 
             Assert.That(itemCategories.Count, Is.EqualTo(1));
             Assert.That(itemCategories[0].Name, Is.EqualTo(MusicCategory));
         }
 
-        private List<ItemCategoryRelation> BuildItemCategoryRelations(ItemCategory musicParent, ItemCategory musicChild, ItemCategory musicChild2, ItemCategory musicGrandChild)
+        [Test]
+        public void TestQuery()
         {
-            var itemCategoryRelations = new List<ItemCategoryRelation>
-            {
-                _builder.WithParentAndChild(musicParent, musicChild).Build(),
-                _builder.WithParentAndChild(musicParent, musicChild2).Build(),
-                _builder.WithParentAndChild(musicChild, musicGrandChild).Build()
-            };
-            return itemCategoryRelations;
-        }
-
-        private ItemCategory BuildItemCategory(string itemName)
-        {
-            return _itemCategoryBuilder.WithIdAndName("BF273661-F572-4A6F-974B-5DB56F9DADBA", itemName).Build();
+            ItemCategoryDAO dao = new ItemCategoryDAOImpl(new DbProxyContext(), Mock.Instantiate<ILogger>());
+            dao.GetTopLevelCategoriesWithChildren();
         }
     }
 }
