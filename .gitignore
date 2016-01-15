@@ -8,3 +8,6 @@ obj/*
 bin/Debug/*
 bin/Release/*
 *.suo
+*/bin/*
+bin/*
+/bin/*
