@@ -11,7 +11,7 @@
         {
         }
 
-        public int BrandId { get; private set; }
-        public string Name { get; private set; }
+        public virtual int BrandId { get; protected set; }
+        public virtual string Name { get; protected set; }
     }
 }

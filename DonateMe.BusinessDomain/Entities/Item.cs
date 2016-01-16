@@ -22,21 +22,21 @@ namespace DonateMe.BusinessDomain.Entities
         protected Item() {}
 
         [Key]
-        public int ItemId { get; private set; }
+        public virtual int ItemId { get; protected set; }
 
         [Required]
-        public string Name { get; private set; }
+        public virtual string Name { get; protected set; }
 
         [Column]
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
         
         [Column]
-        public string Model { get; set; }
+        public virtual string Model { get; set; }
 
-        public int? BrandId { get; private set; }
+        public virtual int? BrandId { get; protected set; }
 
         [ForeignKey("BrandId")]
-        public Brand Brand
+        public virtual Brand Brand
         {
             get { return _brand; }
             set
@@ -49,9 +49,9 @@ namespace DonateMe.BusinessDomain.Entities
             }
         }
 
-        public Guid ParentId { get; set; }
+        public virtual Guid ParentId { get; set; }
 
         [ForeignKey("ParentId")]
-        public ItemCategory ParentItemCategory { get; private set; }
+        public virtual ItemCategory ParentItemCategory { get; protected set; }
     }
 }

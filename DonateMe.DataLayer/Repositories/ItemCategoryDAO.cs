@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DonateMe.BusinessDomain;
-using DonateMe.BusinessDomain.Entities;
 using DonateMe.Common;
 // ReSharper disable InconsistentNaming
 

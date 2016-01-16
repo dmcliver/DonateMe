@@ -38,6 +38,15 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.1.2\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
@@ -45,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,10 +62,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbManager.cs" />
     <Compile Include="DbProxyContext.cs" />
     <Compile Include="DbInitializer.cs" />
+    <Compile Include="IDbManager.cs" />
     <Compile Include="IDbProxyContext.cs" />
     <Compile Include="Mappings\BrandMapping.cs" />
+    <Compile Include="Mappings\Hibernate\BrandMapping.cs" />
+    <Compile Include="Mappings\Hibernate\ImageMapping.cs" />
+    <Compile Include="Mappings\Hibernate\ItemCategoryMapping.cs" />
+    <Compile Include="Mappings\Hibernate\ItemMapping.cs" />
+    <Compile Include="Mappings\Hibernate\UserProfileMapping.cs" />
     <Compile Include="Mappings\ImageMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ItemCategoryDAO.cs" />

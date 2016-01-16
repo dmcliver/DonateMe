@@ -8,6 +8,7 @@ namespace TestCommon.Builders
     {
         private Guid _id;
         private string _name;
+        private ItemCategory _parent;
 
         public ItemCategoryBuilder(string name = "MyItemCategory")
         {
@@ -22,15 +23,26 @@ namespace TestCommon.Builders
             return this;
         }
 
-        public ItemCategoryCount Build()
+        public ItemCategory Build()
         {
-            ItemCategoryCount parent = new ItemCategoryCount(_name, _id, 0);
-            return parent;
+            return _parent == null ? new ItemCategory(_id, _name) : new ItemCategory(_id, _name, _parent); 
+        }
+
+        public ItemCategoryCount BuildCount()
+        {
+            ItemCategoryCount count = new ItemCategoryCount(_name, _id, 0);
+            return count;
         }
 
         public ItemCategoryBuilder With(string name)
         {
             _name = name;
+            return this;
+        }
+
+        public ItemCategoryBuilder With(ItemCategory parent)
+        {
+            this._parent = parent;
             return this;
         }
     }

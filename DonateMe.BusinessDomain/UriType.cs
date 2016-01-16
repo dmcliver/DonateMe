@@ -18,7 +18,7 @@ namespace DonateMe.BusinessDomain
         {
         }
 
-        public string Path { get; private set; }
+        public string Path { get; protected set; }
 
         public Uri GetUri()
         {

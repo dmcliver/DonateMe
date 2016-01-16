@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using DonateMe.BusinessDomain;
-using DonateMe.BusinessDomain.Entities;
 using DonateMe.DataLayer.Repositories;
 using DonateMe.Web.Models;
 

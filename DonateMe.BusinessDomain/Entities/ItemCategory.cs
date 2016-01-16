@@ -30,18 +30,19 @@ namespace DonateMe.BusinessDomain.Entities
             if (parentItemCategory == null) throw new ArgumentNullException("parentItemCategory");
 
             ParentItemCategory = parentItemCategory;
+            ParentItemCategoryId = parentItemCategory.ItemCategoryId;
         }
 
         [Key]
-        public Guid ItemCategoryId { get; private set; }
+        public virtual Guid ItemCategoryId { get; protected set; }
 
         [Required]
-        public string Name { get; private set; }
+        public virtual string Name { get; protected set; }
 
-        public Guid? ParentItemCategoryId { get; set; }
+        public virtual Guid? ParentItemCategoryId { get; set; }
 
         [ForeignKey("ParentItemCategoryId")]
-        public ItemCategory ParentItemCategory
+        public virtual ItemCategory ParentItemCategory
         {
             get { return _parentItemCategory; }
             set

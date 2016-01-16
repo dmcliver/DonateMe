@@ -8,9 +8,9 @@ namespace DonateMe.BusinessDomain.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
+        public virtual int UserId { get; set; }
 
         [Required]
-        public string UserName { get; set; }
+        public virtual string UserName { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DonateMe.DataLayer;
 using DonateMe.Web.Filters;
 
 namespace DonateMe.Web
@@ -22,6 +23,12 @@ namespace DonateMe.Web
             AuthConfig.RegisterAuth();
             AutofacConfig.RegisterIoc();
             new InitializeSimpleMembershipAttribute().OnActionExecuting(null);
+            RequestCompleted += MvcApplication_RequestCompleted;
+        }
+
+        void MvcApplication_RequestCompleted(object sender, System.EventArgs e)
+        {
+            DbManager.Close();
         }
     }
 }

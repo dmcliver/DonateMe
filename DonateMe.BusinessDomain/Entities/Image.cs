@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DonateMe.BusinessDomain.Entities
@@ -22,11 +21,22 @@ namespace DonateMe.BusinessDomain.Entities
         {
         }
 
-        public Guid ImageId { get; private set; }
-        
-        public UriType UriPath { get; private set; }
-        
-        public int ItemId { get; private set; }
-        public Item Item { get; private set; }
+        public virtual Guid ImageId { get; protected set; }
+
+        public virtual UriType UriPath { get; protected set; }
+
+        [NotMapped]
+        public virtual string Path
+        {
+            get { return UriPath.Path; }
+            set
+            {
+                if(UriPath == null)
+                    UriPath = new UriType(value);
+            }
+        }
+
+        public virtual int ItemId { get; protected set; }
+        public virtual Item Item { get; protected set; }
     }
 }
