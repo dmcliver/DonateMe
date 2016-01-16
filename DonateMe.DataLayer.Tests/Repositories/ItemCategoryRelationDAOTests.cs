@@ -16,7 +16,7 @@ namespace DonateMe.DataLayer.Tests.Repositories
     public class ItemCategoryRelationDAOTests
     {
         private ItemCategoryBuilder _itemCategoryBuilder;
-        private DbManager dbManager;
+        private readonly DbManager dbManager = new DbManager();
 
         private const string Id = "A3C7A21C-4C61-4A7A-B7D3-3B7D6EFA6F8A";
         private const string MusicVideoCategory = "Video";
@@ -31,7 +31,6 @@ namespace DonateMe.DataLayer.Tests.Repositories
         [SetUp]
         public void Init()
         {
-            dbManager = new DbManager();
             _itemCategoryBuilder = new ItemCategoryBuilder();
             _musicParent = _itemCategoryBuilder.WithIdAndName(Id, MusicCategory).Build();
             _musicChild = _itemCategoryBuilder.With(_musicParent).WithIdAndName("057ED8FF-84D9-4263-8722-E2A963924B4B", MusicInstrumentCategory).Build();

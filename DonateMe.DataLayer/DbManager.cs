@@ -15,7 +15,7 @@ namespace DonateMe.DataLayer
 
         public ISession ObtainSession()
         {
-            if (_factory == null)
+            if (_factory == null || _factory.IsClosed)
             {
                 var fluentConfiguration = Fluently.Configure();
 

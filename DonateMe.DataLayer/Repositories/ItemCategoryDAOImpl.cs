@@ -11,7 +11,7 @@ namespace DonateMe.DataLayer.Repositories
 {
     public class ItemCategoryDAOImpl : ItemCategoryDAO
     {
-        private readonly IQueryable<ItemCategory> _itemCategories;
+        private readonly IDbProxyContext _dbContext;
         private readonly IDbManager _manager;
         private readonly ILogger _logger;
 
@@ -21,7 +21,7 @@ namespace DonateMe.DataLayer.Repositories
             if (manager == null) throw new ArgumentNullException("manager");
             if (logger == null) throw new ArgumentNullException("logger");
 
-            _itemCategories = dbContext.Set<ItemCategory>();
+            _dbContext = dbContext;
             _manager = manager;
             _logger = logger;
         }
@@ -31,15 +31,6 @@ namespace DonateMe.DataLayer.Repositories
         /// </summary>
         public IEnumerable<ItemCategoryCount> GetTopLevelCategoriesWithChildren()
         {
-//            var query = from icp in _itemCategories
-//                        from icc in _itemCategories
-//                        where icp.ParentItemCategoryId == null && icp.ItemCategoryId == icc.ParentItemCategoryId
-//                        group icp by new { icp.ItemCategoryId, icp.Name } into icpg
-//                        let item = icpg.Key
-//                        select new { item.Name, item.ItemCategoryId, Count = icpg.Count() };
-//
-//            return query.ToList().Select(res => new ItemCategoryCount(res.Name, res.ItemCategoryId, res.Count));
-            
             ISession session = _manager.ObtainSession();
 
             ItemCategory icp = null;
@@ -63,24 +54,13 @@ namespace DonateMe.DataLayer.Repositories
         /// </summary>
         public IEnumerable<ItemCategoryCount> GetTopLevelCategoriesWithNoChildren()
         {
-//            var query = from icp in _itemCategories
-//                        join icc in _itemCategories on icp.ItemCategoryId equals icc.ParentItemCategoryId
-//                        into iccg from leftIcc in iccg.DefaultIfEmpty()
-//                        where icp.ParentItemCategoryId == null && leftIcc == null
-//                        group icp by new { icp.ItemCategoryId, icp.Name } into icpg
-//                        let item = icpg.Key
-//                        select new { item.Name, item.ItemCategoryId, Count = icpg.Count() };
-//
-//            return query.ToList().Select(res => new ItemCategoryCount(res.Name, res.ItemCategoryId, res.Count));
-
             ISession session = _manager.ObtainSession();
 
             ItemCategory icp = null;
 
             IList<Object[]> list = session.QueryOver<ItemCategory>()
                                           .JoinAlias(ic => ic.ParentItemCategory, () => icp, JoinType.RightOuterJoin)
-                                          .Where(() => icp.ParentItemCategory == null)
-                                          .Where(ic => ic.ItemCategoryId == null)
+                                          .Where(ic => ic.ItemCategoryId == null && icp.ParentItemCategory == null)
                                           .SelectList
                                           (
                                               x => x.SelectGroup(() => icp.ItemCategoryId)
@@ -98,7 +78,7 @@ namespace DonateMe.DataLayer.Repositories
         /// </summary>
         public IEnumerable<ItemCategoryCount> GetChildCategoriesByParentId(Guid id)
         {
-            IQueryable<ItemCategory> query = from ic in _itemCategories 
+            IQueryable<ItemCategory> query = from ic in _dbContext.Set<ItemCategory>() 
                                              where ic.ParentItemCategoryId == id 
                                              select ic;
 
