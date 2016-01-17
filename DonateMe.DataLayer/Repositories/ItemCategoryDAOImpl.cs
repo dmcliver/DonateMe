@@ -35,8 +35,8 @@ namespace DonateMe.DataLayer.Repositories
 
             ItemCategory icp = null;
 
-            IList<Object[]> list = session.QueryOver<ItemCategory>()
-                                          .JoinAlias(ic => ic.ParentItemCategory, () => icp, JoinType.InnerJoin)
+            IList<object[]> list = session.QueryOver<ItemCategory>()
+                                          .JoinAlias(ic => ic.ParentItemCategory, () => icp)
                                           .Where(() => icp.ParentItemCategory == null)
                                           .SelectList
                                           (
@@ -44,7 +44,7 @@ namespace DonateMe.DataLayer.Repositories
                                                     .SelectGroup(() => icp.Name)
                                                     .SelectCount(() => icp.ItemCategoryId)    
                                           )
-                                          .List<Object[]>();
+                                          .List<object[]>();
 
             return list.Select(res => new ItemCategoryCount(res[1].ToString(), (Guid)res[0], (int)res[2]));
         }
@@ -58,7 +58,7 @@ namespace DonateMe.DataLayer.Repositories
 
             ItemCategory icp = null;
 
-            IList<Object[]> list = session.QueryOver<ItemCategory>()
+            IList<object[]> list = session.QueryOver<ItemCategory>()
                                           .JoinAlias(ic => ic.ParentItemCategory, () => icp, JoinType.RightOuterJoin)
                                           .Where(ic => ic.ItemCategoryId == null && icp.ParentItemCategory == null)
                                           .SelectList
@@ -67,7 +67,7 @@ namespace DonateMe.DataLayer.Repositories
                                                     .SelectGroup(() => icp.Name)
                                                     .SelectCount(() => icp.ItemCategoryId)
                                           )
-                                          .List<Object[]>();
+                                          .List<object[]>();
 
             return list.Select(res => new ItemCategoryCount(res[1].ToString(), (Guid)res[0], (int)res[2]));
         } 
@@ -84,7 +84,7 @@ namespace DonateMe.DataLayer.Repositories
 
             IList<ItemCategory> itemCategories = query.ToList();
             
-            return itemCategories.Select(x => new ItemCategoryCount(x.Name, x.ItemCategoryId, itemCategories.Count));
+            return itemCategories.Select(ic => new ItemCategoryCount(ic.Name, ic.ItemCategoryId, itemCategories.Count));
         } 
     }
 }

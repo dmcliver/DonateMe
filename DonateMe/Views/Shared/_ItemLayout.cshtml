@@ -7,12 +7,13 @@
 @Scripts.Render("~/bundles/jstree")
 @Scripts.Render("~/bundles/ProductMvvm")
 
-<script type="text/javascript">
-    ko.applyBindings(window.ProductViewModel);
-</script>
+<div ng-controller="HomeController">
+    {{message}}
 
-<div id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
+    <div tree-link id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
 
-<button data-bind="click: getProducts">Click</button>
+    <button ng-click="sayHello()">Click</button>
+
+</div>
 
 @RenderBody()
