@@ -8,12 +8,10 @@
 @Scripts.Render("~/bundles/ProductMvvm")
 
 <div ng-controller="HomeController">
-    {{message}}
-
+    
+    
     <div tree-link id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
 
-    <button ng-click="sayHello()">Click</button>
-
+    @RenderBody()
+    
 </div>
-
-@RenderBody()

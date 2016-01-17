@@ -12,7 +12,9 @@ namespace DonateMe.Web
                 "~/SinglePageAppScripts/ProductRepository.js",
                 "~/SinglePageAppScripts/ProductView.js",
                 "~/SinglePageAppScripts/ProductViewModel.js",
-                "~/SinglePageAppScripts/HomeController.js"
+                "~/SinglePageAppScripts/HomeController.js",
+                "~/SinglePageAppScripts/HomeViewAction.js",
+                "~/SinglePageAppScripts/HomeRepository.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include("~/Scripts/knockout-2.2.0.js"));
             bundles.Add(new ScriptBundle("~/bundles/jstree").Include("~/Scripts/jsTree3/jstree.js"));

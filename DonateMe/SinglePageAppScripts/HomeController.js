@@ -1,37 +1,27 @@
 ﻿app.controller("HomeController", [
 
-    "$scope", "$document", function ($scope, $document) {
+    "$scope", "HomeRepository", function ($scope, homeRepository) {
 
-        $scope.message = "yo";
+        $scope.message = "";
+        $scope.info = null;
 
-        $scope.update = function (x) {
-            $scope.message = x;
+        $scope.update = function (id) {
+            homeRepository.fetchData(id, $scope.onData);
         }
 
-        $scope.sayHello = function() {
-            $scope.message = "hi";
-        }
-    }
-]);
+        $scope.onData = function (result) {
 
-app.directive("treeLink", [
+            if (result.length) {
 
-    "$rootScope", function ($rootScope) {
-
-        return {
-
-            scope: false,
-            controller : "HomeController",
-            replace: true,
-            link: function (s, element, attr) {
-
-                element.on("changed.jstree", function (evt) {
-
-                    s.$apply(function() {
-                        s.update("?x");
-                    });
-                });
+                $scope.info = result;
+                $scope.message = "";
             }
-        };
+            else {
+
+                $scope.message = "No products to display";
+                $scope.info = null;
+            }
+        }
     }
 ]);
+
