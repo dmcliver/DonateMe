@@ -8,8 +8,11 @@
 @Scripts.Render("~/bundles/ProductMvc")
 
 <div ng-controller="ProductHomeController">
-    
-    <div selected-tree-item-directive id="productTreeContainer"></div>
-    @RenderBody()
-    
+
+    <div style="display: inline-block;">
+        @RenderBody()
+    </div>
+
+    <div selected-tree-item-directive style="width: 220px; display: inline-block; float: left" id="productTreeContainer" ></div>
+
 </div>

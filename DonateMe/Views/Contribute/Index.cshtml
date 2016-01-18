@@ -1,16 +1,25 @@
-﻿
+﻿@model DonateMe.Web.Models.ProductModel
+
 @{
     ViewBag.Title = "Contribute to DonateMe";
     Layout = "~/Views/Shared/_ItemLayout.cshtml";
 }
 
-<h2>Add an item</h2>
-
 <div ng-show="info==null">
-    Fill out the info below:<br/>
-    No info to fill out :'(
+
+    <h2>Add an item</h2>
+
+    @if (Model.Name != null)
+    {
+        @Model.Name
+    }
+
+    @using (Html.BeginForm("UploadProduct", "Contribute", FormMethod.Post))
+    {
+        <text>Name:&nbsp;</text>@Html.TextBoxFor(m => m.Name)@Html.ValidationMessageFor(m => m.Name)<br/>
+        <input type="submit" value="submit"/>
+    }
+
 </div>
 
-<div product-display-directive ng-hide="info==null">
-
-</div>
+<div product-display-directive ng-hide="info==null"></div>

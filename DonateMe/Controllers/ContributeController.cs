@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using DonateMe.Web.Models;
 
 namespace DonateMe.Web.Controllers
 {
@@ -6,7 +7,18 @@ namespace DonateMe.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new ProductModel());
+        }
+
+        [HttpPost]
+        public ActionResult UploadProduct(ProductModel model)
+        {
+            if (!ModelState.IsValid)
+                return View("Index", model);
+
+            //TODO: Add call to repository to save item & redirect to success page
+
+            return View("Index", new ProductModel{Name = "Success: " + model.Name});
         }
     }
 }
