@@ -8,13 +8,12 @@ namespace DonateMe.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/angular").Include("~/Scripts/angular.js", "~/Scripts/angular-messages.js"));
-            bundles.Add(new ScriptBundle("~/bundles/ProductMvvm").Include(
-                "~/SinglePageAppScripts/ProductRepository.js",
+            bundles.Add(new ScriptBundle("~/bundles/ProductMvc").Include(
                 "~/SinglePageAppScripts/ProductView.js",
-                "~/SinglePageAppScripts/ProductViewModel.js",
-                "~/SinglePageAppScripts/HomeController.js",
-                "~/SinglePageAppScripts/HomeViewAction.js",
-                "~/SinglePageAppScripts/HomeRepository.js"
+                "~/SinglePageAppScripts/ProductHomeController.js",
+                "~/SinglePageAppScripts/SelectedTreeItemDirective.js",
+                "~/SinglePageAppScripts/ProductDisplayDirective.js",
+                "~/SinglePageAppScripts/ProductRepository.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include("~/Scripts/knockout-2.2.0.js"));
             bundles.Add(new ScriptBundle("~/bundles/jstree").Include("~/Scripts/jsTree3/jstree.js"));

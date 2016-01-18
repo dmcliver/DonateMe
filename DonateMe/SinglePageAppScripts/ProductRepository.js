@@ -1,22 +1,20 @@
-﻿"use strict";
+﻿app.service("ProductRepository", [
 
-(function() {
+    "$http", function ($http) {
 
-    var self = {};
+        this.getByCategoryId = function(id, callback) {
 
-    self.getProductsById = function (id, command) {
-
-        var url = "/Api/Item";
-
-        $.getJSON(url, { "id": id })
-         .done(function(data) {
-             command.execute(data);
-         })
-         .fail(function(err) {
-             throw new Error(err.status + " " + err.statusText + " from ProductRepository::getProductsById calling url:" + url);
-         });
+            $http({
+                method: "GET",
+                url: "/Api/Item",
+                params: { "id": id }
+            })
+            .then(function (succResp) {
+                callback(succResp.data);
+            },
+            function (errResp) {
+                throw new Error(errResp.status + " " + errResp.statusText + " from ProductRepository::getProductsById calling url:" + url);
+            });
+        };
     }
-
-    window.ProductRepository = self;
-
-})();
+]);

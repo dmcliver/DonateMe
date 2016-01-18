@@ -5,13 +5,11 @@
 @RenderSection("featured", false)
 
 @Scripts.Render("~/bundles/jstree")
-@Scripts.Render("~/bundles/ProductMvvm")
+@Scripts.Render("~/bundles/ProductMvc")
 
-<div ng-controller="HomeController">
+<div ng-controller="ProductHomeController">
     
-    
-    <div tree-link id="container" data-bind="event: {'changed.jstree' : getProducts}"></div>
-
+    <div selected-tree-item-directive id="productTreeContainer"></div>
     @RenderBody()
     
 </div>

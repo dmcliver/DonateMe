@@ -1,11 +1,11 @@
-﻿app.directive("treeLink", [
+﻿app.directive("selectedTreeItemDirective", [
 
     function () {
 
         return {
 
             scope: false,
-            controller: "HomeController",
+            controller: "ProductHomeController",
             replace: true,
             link: function (actualScope, element, attr) {
 

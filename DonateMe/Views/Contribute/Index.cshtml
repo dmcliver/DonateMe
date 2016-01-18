@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Contribute to DonateMe";
+    Layout = "~/Views/Shared/_ItemLayout.cshtml";
+}
+
+<h2>Add an item</h2>
+
+<div ng-show="info==null">
+    Fill out the info below:<br/>
+    No info to fill out :'(
+</div>
+
+<div product-display-directive ng-hide="info==null">
+
+</div>
