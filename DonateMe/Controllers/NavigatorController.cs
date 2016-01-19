@@ -21,7 +21,11 @@ namespace DonateMe.Web.Controllers
             _itemCategoryDAO = itemCategoryDAO;
         }
 
-        // GET api/navigator?id=5
+        /// <summary>
+        ///  Handles an HTTP GET request for the corresponding url - http://localhost/Api/Navigator?id=5
+        /// </summary>
+        /// <param name="id">Category id to find items by</param>
+        /// <returns>A list of found items that are to be returned as serialized json response</returns>
         public IEnumerable<ItemNodeModel> Get([FromUri] string id)
         {
             Guid gid;

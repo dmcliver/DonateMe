@@ -6,6 +6,9 @@ using DonateMe.Common;
 
 namespace DonateMe.DataLayer.Repositories
 {
+    /// <summary>
+    /// Responsible for performing database operations on item category records.
+    /// </summary>
     [Injected]
     public interface ItemCategoryDAO
     {

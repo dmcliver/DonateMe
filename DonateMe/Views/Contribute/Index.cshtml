@@ -20,6 +20,18 @@
         <input type="submit" value="submit"/>
     }
 
+    <div ng-hide="prodName==null">
+        {{prodName}}
+    </div>
+
+    <form name="uploadForm" ng-submit="submitForm()">
+        
+        <input type="text" ng-model="prodName"/>
+        <input type="file" file-upload multiple/>
+        <input type="submit" value="zubmit"/>
+
+    </form>
+
 </div>
 
 <div product-display-directive ng-hide="info==null"></div>
