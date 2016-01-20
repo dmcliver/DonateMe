@@ -10,8 +10,12 @@
             productRepository.getByCategoryId(id, $scope.onProductsReceived);
         };
 
-        $scope.submitForm = function() {
+        $scope.submitForm = function () {
+
             $scope.prodName += "?";
+            var formData = new FormData();
+            formData.append("file", $scope.files[0]);
+            productRepository.sendData(formData);
         };
 
         $scope.onProductsReceived = function(products) {

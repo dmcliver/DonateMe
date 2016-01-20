@@ -16,5 +16,17 @@
                 throw new Error(errResp.status + " " + errResp.statusText + " from ProductRepository::getProductsById calling url:" + url);
             });
         };
+
+        this.sendData = function (filios) {
+
+            $http({
+
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined },
+                method: "POST",
+                url: "/Api/Item",
+                data:  filios 
+            });
+        };
     }
 ]);
