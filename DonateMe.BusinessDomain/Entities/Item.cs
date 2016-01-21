@@ -22,6 +22,7 @@ namespace DonateMe.BusinessDomain.Entities
         protected Item() {}
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int ItemId { get; protected set; }
 
         [Required]

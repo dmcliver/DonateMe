@@ -20,5 +20,11 @@ namespace DonateMe.DataLayer.Repositories
             IQueryable<Item> query = _dbContext.Set<Item>().Where(i => i.ParentItemCategory.ItemCategoryId == id);
             return query.ToList();
         }
+
+        public int Save(Item model)
+        {
+            _dbContext.Add(model);
+            return _dbContext.SaveChanges();
+        }
     }
 }

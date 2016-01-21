@@ -10,5 +10,6 @@ namespace DonateMe.DataLayer.Repositories
     public interface ItemDAO
     {
         IEnumerable<Item> GetByCategoryId(Guid id);
+        int Save(Item model);
     }
 }

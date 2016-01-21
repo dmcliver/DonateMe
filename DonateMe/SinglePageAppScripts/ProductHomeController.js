@@ -14,7 +14,8 @@
 
             $scope.prodName += "?";
             var formData = new FormData();
-            formData.append("file", $scope.files[0]);
+            formData.append("Image", $scope.files[0]);
+            formData.append("Name", $scope.prodName);
             productRepository.sendData(formData);
         };
 

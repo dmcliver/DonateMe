@@ -8,7 +8,7 @@ namespace DonateMe.DataLayer.Mappings.Hibernate
         public ItemMapping()
         {
             Table("Item");
-            Id(x => x.ItemId);
+            Id(x => x.ItemId).GeneratedBy.Identity();
             References(i => i.Brand).Column("BrandId").ForeignKey("BrandId");
             References(i => i.ParentItemCategory).Column("ParentId").ForeignKey("ParentId").Not.Nullable();
             Map(i => i.Name).Not.Nullable();

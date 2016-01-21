@@ -9,26 +9,11 @@
 
     <h2>Add an item</h2>
 
-    @if (Model.Name != null)
-    {
-        @Model.Name
-    }
-
-    @using (Html.BeginForm("UploadProduct", "Contribute", FormMethod.Post))
-    {
-        <text>Name:&nbsp;</text>@Html.TextBoxFor(m => m.Name)@Html.ValidationMessageFor(m => m.Name)<br/>
-        <input type="submit" value="submit"/>
-    }
-
-    <div ng-hide="prodName==null">
-        {{prodName}}
-    </div>
-
     <form name="uploadForm" ng-submit="submitForm()">
         
-        <input type="text" ng-model="prodName"/>
-        <input type="file" file-upload multiple/>
-        <input type="submit" value="zubmit"/>
+        Product name:<input type="text" ng-model="prodName"/>
+        Photo(s):<input type="file" file-upload multiple/>
+        <input type="submit" value="submit"/>
 
     </form>
 

@@ -17,7 +17,7 @@
             });
         };
 
-        this.sendData = function (filios) {
+        this.sendData = function (model) {
 
             $http({
 
@@ -25,7 +25,7 @@
                 headers: { 'Content-Type': undefined },
                 method: "POST",
                 url: "/Api/Item",
-                data:  filios 
+                data: model
             });
         };
     }

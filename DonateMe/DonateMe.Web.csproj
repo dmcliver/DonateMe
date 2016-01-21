@@ -1155,6 +1155,10 @@
       <Project>{3236EEF8-A9A1-42C4-9387-12D165B223CF}</Project>
       <Name>DonateMe.BusinessDomain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DonateMe.Common\DonateMe.Common.csproj">
+      <Project>{ab42783c-094c-48fe-a353-da56ea72e2e6}</Project>
+      <Name>DonateMe.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DonateMe.DataLayer\DonateMe.DataLayer.csproj">
       <Project>{87D5B2C5-0AF8-4318-9F96-A870550047DB}</Project>
       <Name>DonateMe.DataLayer</Name>

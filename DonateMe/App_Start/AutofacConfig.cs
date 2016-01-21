@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using DonateMe.Common;
 using DonateMe.DataLayer;
 using NLog;
 
@@ -36,7 +37,7 @@ namespace DonateMe.Web
 
             builder.RegisterFilterProvider();
 
-            builder.RegisterAssemblyTypes(typeof (MvcApplication).Assembly, typeof (DbContextImpl).Assembly)
+            builder.RegisterAssemblyTypes(typeof (MvcApplication).Assembly, typeof (DbContextImpl).Assembly, typeof(KeyValueModelBinder).Assembly)
                    .Where
                    (
                        t =>
