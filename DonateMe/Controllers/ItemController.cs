@@ -42,19 +42,38 @@ namespace DonateMe.Web.Controllers
         {
             if (streamProvider.IsCompleted)
             {
+                const int numberOfModelsProperties = 3;
+
                 IList<HttpContent> allHttpContents = streamProvider.Result.Contents.ToList();
-                
-                IEnumerable<HttpContent> httpPropertyContents = allHttpContents.Skip(1);
+
+                IEnumerable<HttpContent> httpPropertyContents = allHttpContents.Take(numberOfModelsProperties);
 
                 Dictionary<string, string> dictionary = httpPropertyContents.ToDictionary(hc => hc.Headers.ContentDisposition.Name, hc => hc.ReadAsStringAsync().Result);
                 
-                string itemCategory = dictionary.Single(kv => kv.Key.Replace("\"", string.Empty) == "ItemCategory").Value;
-                string brand = dictionary.Single(kv => kv.Key.Replace("\"", string.Empty) == "Brand").Value;
+                string itemCategory = GetDictValue(dictionary, "ItemCategory");
+                string brand = GetDictValue(dictionary, "Brand");
                 
+                //TODO: get the brand and itemCategory entities from other DAO's to use for adding to the item entity
+
+                IEnumerable<HttpContent> files = allHttpContents.Skip(numberOfModelsProperties);
+                WriteFilesToLocal(files);
+
+                //TODO: build image entity from files then add them to the model
+
                 Item model = _binder.BindToKeyValues<Item, string, string>(dictionary);
                 _itemDAO.Save(model);
+            }
+        }
 
-                HttpContent file = allHttpContents[0];
+        private static string GetDictValue(Dictionary<string, string> dictionary, string key)
+        {
+            return dictionary.Single(kv => kv.Key.Replace("\"", string.Empty) == key).Value;
+        }
+
+        private static void WriteFilesToLocal(IEnumerable<HttpContent> files)
+        {
+            foreach (var file in files)
+            {
                 string fileName = file.Headers.ContentDisposition.FileName;
                 byte[] fileData = file.ReadAsByteArrayAsync().Result;
 

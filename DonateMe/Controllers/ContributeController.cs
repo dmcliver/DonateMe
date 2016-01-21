@@ -9,16 +9,5 @@ namespace DonateMe.Web.Controllers
         {
             return View(new ProductModel());
         }
-
-        [HttpPost]
-        public ActionResult UploadProduct(ProductModel model)
-        {
-            if (!ModelState.IsValid)
-                return View("Index", model);
-
-            //TODO: Add call to repository to save item & redirect to success page
-
-            return View("Index", new ProductModel{Name = "Success: " + model.Name});
-        }
     }
 }
