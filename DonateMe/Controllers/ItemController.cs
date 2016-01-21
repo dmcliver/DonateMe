@@ -61,7 +61,7 @@ namespace DonateMe.Web.Controllers
                 //TODO: build image entity from files then add them to the model
 
                 Item model = _binder.BindToKeyValues<Item, string, string>(dictionary);
-                _itemDAO.Save(model);
+                //_itemDAO.Save(model);
             }
         }
 

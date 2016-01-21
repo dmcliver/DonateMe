@@ -5,6 +5,8 @@
         $scope.message = "";
         $scope.info = null;
         $scope.prodName = null;
+        $scope.prodDesc = null;
+        $scope.prodModel = null;
 
         $scope.update = function(id) {
             productRepository.getByCategoryId(id, $scope.onProductsReceived);
@@ -14,8 +16,10 @@
 
             $scope.prodName += "?";
             var formData = new FormData();
+            formData.append("Name", $scope.prodDesc);
+            formData.append("Description", $scope.prodModel);
+            formData.append("Model", $scope.prodName);
             formData.append("Image", $scope.files[0]);
-            formData.append("Name", $scope.prodName);
             productRepository.sendData(formData);
         };
 
