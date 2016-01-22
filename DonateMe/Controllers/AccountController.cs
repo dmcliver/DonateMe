@@ -55,14 +55,25 @@ namespace DonateMe.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
+            const string userRoleName = "User";
+
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+
+                    if (!Roles.RoleExists(userRoleName))
+                        Roles.CreateRole(userRoleName);
+                    
+                    Roles.AddUserToRole(model.UserName, userRoleName);
+
+                    Uri uri = HttpContext.Request.Url;
+
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
+                    //return RedirectToLocal(uri.LocalPath);
                 }
                 catch (MembershipCreateUserException e)
                 {

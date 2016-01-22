@@ -5,17 +5,56 @@
     Layout = "~/Views/Shared/_ItemLayout.cshtml";
 }
 
-<div ng-show="info==null">
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#autoBrand").autocomplete({
+            source: "/Api/Brand"
+        });
+    });
+</script>
+
+<div ng-show="info==null" style="width: 640px">
 
     <h2>Add an item</h2>
 
     <form name="uploadForm" ng-submit="submitForm()">
 
-        Product name:<input type="text" name="prodName" ng-model="prodName" ng-required="true"/><span style="color:red" ng-show="uploadForm.prodName.$invalid">*Product name is required</span><br/>
-        Product description:<input type="text" name="prodDesc" ng-model="prodDesc" ng-required="true"/><span style="color:red" ng-show="uploadForm.prodDesc.$invalid">*Product description is required</span><br/>
-        Product model:<input type="text" ng-model="prodModel"/><br/>
-        Photo(s):<input type="file" file-upload multiple/>
-        <input type="submit" value="submit" ng-disabled="uploadForm.$invalid" ng-style="uploadForm.$invalid?{'background-color': '#ffe7e7'}:{'background-color': '#efeeef'}"/>
+        <div>
+            <div style="width: 125px; display: inline-block">Product name:</div>
+            <div style="display: inline-block">
+                <input type="text" name="prodName" ng-model="prodName" ng-required="true"/><span style="color: red" ng-show="uploadForm.prodName.$invalid">*Product name is required</span>
+            </div>
+        </div>
+
+        <div>
+            <div style="width: 125px; display: inline-block">Product description:</div>
+            <div style="display: inline-block">
+                <input type="text" name="prodDesc" ng-model="prodDesc" ng-required="true"/><span style="color:red" ng-show="uploadForm.prodDesc.$invalid">*Product description is required</span>
+            </div>
+        </div>
+
+        <div>
+            <div style="width: 125px; display: inline-block">Product model:</div>
+            <div style="display: inline-block">
+                <input type="text" ng-model="prodModel"/>
+            </div>
+        </div>
+
+        <div>
+            <div style="width: 125px; display: inline-block">Brand:</div>
+            <div style="display: inline-block">
+                <input type="text" id="autoBrand"/>
+            </div>
+        </div>
+
+        <div>
+            <div style="width: 125px; display: inline-block">Photo(s):</div>
+            <div style="display: inline-block">
+                <input type="file" file-upload multiple/>
+            </div>
+        </div>
+
+        <input type="submit" value="submit" ng-disabled="uploadForm.$invalid" ng-style="uploadForm.$invalid?{'background-color': '#ffe7e7', 'margin-left': '370px'}:{'background-color': '#efeeef', 'margin-left': '370px'}"/>
 
     </form>
 
