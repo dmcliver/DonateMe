@@ -40,14 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryHierarchyServiceImpl.cs" />
     <Compile Include="Entities\Brand.cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\ItemCategory.cs" />
     <Compile Include="Entities\UserProfile.cs" />
+    <Compile Include="CategoryHierarchyService.cs" />
     <Compile Include="ItemCategoryCount.cs" />
+    <Compile Include="ParentChildCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UriType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DonateMe.Common\DonateMe.Common.csproj">
+      <Project>{AB42783C-094C-48FE-A353-DA56EA72E2E6}</Project>
+      <Name>DonateMe.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
