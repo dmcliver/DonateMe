@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using DonateMe.BusinessDomain;
 using DonateMe.BusinessDomain.Entities;
 using DonateMe.Common;
 using DonateMe.DataLayer.Repositories;
-using WebGrease.Css.Extensions;
 
 namespace DonateMe.Web.Controllers
 {
     public class ItemController : ApiController
     {
         private readonly ItemDAO _itemDAO;
-        private readonly IKeyValueModelBinder _binder;
+        private readonly KeyValueModelBinder _binder;
+        private readonly CategoryHierarchyService _categoryHierarchyService;
 
-        public ItemController(ItemDAO itemDAO, IKeyValueModelBinder binder)
+        public ItemController(ItemDAO itemDAO, KeyValueModelBinder binder, CategoryHierarchyService categoryHierarchyService)
         {
             if (itemDAO == null) throw new ArgumentNullException("itemDAO");
             if (binder == null) throw new ArgumentNullException("binder");
+            if (categoryHierarchyService == null) throw new ArgumentNullException("categoryHierarchyService");
 
             _itemDAO = itemDAO;
             _binder = binder;
+            _categoryHierarchyService = categoryHierarchyService;
         }
 
         public IEnumerable<Item> Get(Guid id)
@@ -35,8 +37,9 @@ namespace DonateMe.Web.Controllers
 
         public IEnumerable<string> Get()
         {
-            return _itemDAO.GetCategoryNames();
-        } 
+            IEnumerable<IGrouping<string, ParentChildCategory>> categories = _itemDAO.GetCategories();
+            return _categoryHierarchyService.GroupCategoryNamesAsFlatListHierarchy(categories);
+        }
 
         public void Post()
         {

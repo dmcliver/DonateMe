@@ -37,7 +37,7 @@ namespace DonateMe.Web
 
             builder.RegisterFilterProvider();
 
-            builder.RegisterAssemblyTypes(typeof (MvcApplication).Assembly, typeof (DbContextImpl).Assembly, typeof(KeyValueModelBinder).Assembly)
+            builder.RegisterAssemblyTypes(typeof (MvcApplication).Assembly, typeof (DbContextImpl).Assembly, typeof(KeyValueModelBinderImpl).Assembly)
                    .Where
                    (
                        t =>

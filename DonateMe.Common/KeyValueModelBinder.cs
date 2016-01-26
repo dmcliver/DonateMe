@@ -1,14 +1,12 @@
-﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DonateMe.Common
 {
-    public class KeyValueModelBinder : IKeyValueModelBinder
+    [Injected]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public interface KeyValueModelBinder
     {
-        public TM BindToKeyValues<TM, TK, TV>(Dictionary<TK, TV> keyVal)
-        {
-            TM model = Activator.CreateInstance<TM>();
-            return model;
-        }
+        TM BindToKeyValues<TM, TK, TV>(Dictionary<TK, TV> keyVal);
     }
 }
