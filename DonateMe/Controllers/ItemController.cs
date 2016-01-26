@@ -33,6 +33,11 @@ namespace DonateMe.Web.Controllers
             return items;
         }
 
+        public IEnumerable<string> Get()
+        {
+            return _itemDAO.GetCategoryNames();
+        } 
+
         public void Post()
         {
             Request.Content.ReadAsMultipartAsync().ContinueWith(GetData);

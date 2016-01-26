@@ -7,6 +7,18 @@
         $scope.prodName = null;
         $scope.prodDesc = null;
         $scope.prodModel = null;
+        $scope.itemCategories = null;
+        $scope.selectedCategory = null;
+
+        $scope.grabData = function() {
+
+            if(!$scope.itemCategories)
+                productRepository.getItemCategories($scope.onItemCategoriesReceived);
+        }
+
+        $scope.onItemCategoriesReceived = function (categories) {
+            $scope.itemCategories = categories;
+        }
 
         $scope.update = function(id) {
             productRepository.getByCategoryId(id, $scope.onProductsReceived);

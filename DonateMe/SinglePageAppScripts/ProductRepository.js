@@ -17,6 +17,20 @@
             });
         };
 
+        this.getItemCategories = function(callback) {
+            
+            $http({
+                method: "GET",
+                url: "/Api/Item"
+            })
+            .then(function (succResp) {
+                callback(succResp.data);
+            },
+            function (errResp) {
+                throw new Error(errResp.status + " " + errResp.statusText + " from ProductRepository::getItemCategories calling url:" + url);
+            });
+        }
+
         this.sendData = function (model) {
 
             $http({

@@ -11,5 +11,6 @@ namespace DonateMe.DataLayer.Repositories
     {
         IEnumerable<Item> GetByCategoryId(Guid id);
         int Save(Item model);
+        IEnumerable<string> GetCategoryNames();
     }
 }

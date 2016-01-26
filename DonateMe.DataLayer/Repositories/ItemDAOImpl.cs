@@ -26,5 +26,10 @@ namespace DonateMe.DataLayer.Repositories
             _dbContext.Add(model);
             return _dbContext.SaveChanges();
         }
+
+        public IEnumerable<string> GetCategoryNames()
+        {
+            return _dbContext.Set<ItemCategory>().Select(ic => ic.Name).ToList();
+        }
     }
 }

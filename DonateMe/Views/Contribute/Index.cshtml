@@ -6,7 +6,9 @@
 }
 
 <script type="text/javascript">
-    $(document).ready(function() {
+
+    $(document).ready(function () {
+
         $("#autoBrand").autocomplete({
             source: "/Api/Brand"
         });
@@ -18,6 +20,8 @@
     <h2>Add an item</h2>
 
     <form name="uploadForm" ng-submit="submitForm()">
+
+        <input type="hidden" ng-init="grabData()"/> 
 
         <div>
             <div style="width: 125px; display: inline-block">Product name:</div>
@@ -44,6 +48,13 @@
             <div style="width: 125px; display: inline-block">Brand:</div>
             <div style="display: inline-block">
                 <input type="text" id="autoBrand"/>
+            </div>
+        </div>
+
+        <div>
+            <div style="width: 125px; display: inline-block">Category:</div>
+            <div style="display: inline-block">
+                <select ng-options="itemCat for itemCat in itemCategories" ng-model="selectedCategory"></select>
             </div>
         </div>
 
